@@ -32,7 +32,7 @@ private: // ’è‹`
 
     using fsPath = std::experimental::filesystem::path;
 
-    struct ChunckHeader
+    struct ChunkHeader
     {
         char id[4];
         int32_t size;
@@ -40,13 +40,13 @@ private: // ’è‹`
 
     struct RiffHeader
     {
-        ChunckHeader chunk;
+        ChunkHeader chunk;
         char type[4];
     };
 
     struct FormatChunk
     {
-        ChunckHeader chunk;
+        ChunkHeader chunk;
         WAVEFORMATEX fmt;
     };
 
@@ -54,7 +54,8 @@ public: // ŠÖ”
     static void Initialize(void);
     static SoundData Load(const fsPath pathAndFileName);
     static void UnLoad(SoundData* soundData);
-    static void PlayWave(IXAudio2* xAudio2, const SoundData& soundData);
+    static void PlayWave(const SoundData& soundData, float_t volume);
+    static void Reset(void) { xAudio2_.Reset(); }
 
 private: // •Ï”
     static ComPtr<IXAudio2> xAudio2_;

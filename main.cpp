@@ -22,6 +22,7 @@ using namespace DirectX;
 #include "Camera.h"
 #include "Model.h"
 #include "Obj3d.h"
+#include "Audio.h"
 
 using namespace Microsoft::WRL;
 
@@ -53,6 +54,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     // 3d.obj読み込み
     Model::Load("Resources/3dModels/cube/cube.obj");
+    Model::Load("Resources/3dModels/muso/muso.obj");
+
+    XAudio::Initialize();
+    XAudio::SoundData soundData1 = XAudio::Load("Resources/Sounds/Alarm01.wav");
+    XAudio::SoundData soundData2 = XAudio::Load("Resources/Sounds/punpkin_mansion.wav");
 
 #pragma endregion
 
@@ -61,8 +67,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // 使用する変数宣言
     Obj3d objT{ "Resources/3dModels/cube/cube.obj", &cameraT };
     Obj3d objT2{ "Resources/3dModels/cube/cube.obj", &cameraT };
+    Obj3d muso{ "Resources/3dModels/muso/muso.obj" , &cameraT };
 
     objT2.worldCoordinate_.position_ = { 15,0,0 };
+    muso.worldCoordinate_.position_ = { -15,0,0 };
 
     // ゲームループ
     while (true) {
@@ -100,8 +108,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             objT.worldCoordinate_.position_.x += 2;
         }
 
+        if (KEYS::IsTrigger(DIK_SPACE)) {
+            XAudio::PlayWave(soundData2, 0.03f);
+        }
+        if (KEYS::IsTrigger(DIK_RETURN)) {
+            XAudio::PlayWave(soundData1, 0.1f);
+        }
+
         objT.Update();
         objT2.Update();
+        muso.Update();
 
         // 更新処理　ここまで
 #pragma endregion
@@ -115,6 +131,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         objT.Draw();
         objT2.Draw();
+        muso.Draw();
 
         // 描画処理　ここまで
 
@@ -122,6 +139,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         iDX->PostDraw();
 #pragma endregion
     }
+
+    XAudio::Reset();
+    XAudio::UnLoad(&soundData1);
+    XAudio::UnLoad(&soundData2);
+
     // ウィンドウクラスを登録解除
     wnd->DelWindow();
 

@@ -24,12 +24,12 @@ XAudio::SoundData XAudio::Load(const fsPath pathAndFileName)
     if (std::strncmp(riff.type, "WAVE", 4) != 0) assert(0);
 
     FormatChunk format{};
-    file.read((char*)&format, sizeof(ChunckHeader));
-    if (std::strncmp(format.chunk.id, "fmt", 4) != 0) assert(0);
+    file.read((char*)&format, sizeof(ChunkHeader));
+    if (std::strncmp(format.chunk.id, "fmt ", 4) != 0) assert(0);
     assert(format.chunk.size <= sizeof(format.fmt));
     file.read((char*)&format.fmt, format.chunk.size);
 
-    ChunckHeader data;
+    ChunkHeader data;
     file.read((char*)&data, sizeof(data));
     if (std::strncmp(data.id, "JUNK", 4) == 0) {
         file.seekg(data.size, std::ios_base::cur);
@@ -58,10 +58,10 @@ void XAudio::UnLoad(SoundData* soundData)
     soundData->wfex = {};
 }
 
-void XAudio::PlayWave(IXAudio2* xAudio2, const SoundData& soundData)
+void XAudio::PlayWave(const SoundData& soundData, float_t volume)
 {
     IXAudio2SourceVoice* pSourceVoice{ nullptr };
-    HRESULT r = xAudio2->CreateSourceVoice(&pSourceVoice, &soundData.wfex);
+    HRESULT r = xAudio2_->CreateSourceVoice(&pSourceVoice, &soundData.wfex);
     assert(SUCCEEDED(r));
 
     XAUDIO2_BUFFER buf{};
@@ -70,5 +70,6 @@ void XAudio::PlayWave(IXAudio2* xAudio2, const SoundData& soundData)
     buf.Flags = XAUDIO2_END_OF_STREAM;
 
     r = pSourceVoice->SubmitSourceBuffer(&buf);
+    pSourceVoice->SetVolume(volume);
     r = pSourceVoice->Start();
 }

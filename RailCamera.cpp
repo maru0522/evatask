@@ -1,39 +1,6 @@
 #include "RailCamera.h"
+#include "bossHand.h"
 
-const DirectX::XMFLOAT3 operator+= (DirectX::XMFLOAT3& v1, const DirectX::XMFLOAT3& v2)
-{
-
-	v1.x += v2.x;
-	v1.y += v2.y;
-	v1.z += v2.z;
-
-	return v1;
-}
-
-const DirectX::XMFLOAT3 operator+(const DirectX::XMFLOAT3& v1, const DirectX::XMFLOAT3& v2)
-{
-	DirectX::XMFLOAT3 temp(v1);
-	return temp += v2;
-}
-
-float length(DirectX::XMFLOAT3& a)
-{
-	return sqrtf(a.x * a.x + a.y * a.y + a.z * a.z);
-}
-
-void normalize(DirectX::XMFLOAT3& a)
-{
-	float len = length(a);
-	if (len != 0)
-	{
-		a.x /= len;
-		a.y /= len;
-		a.z /= len;
-		return;
-	}
-
-	return;
-}
 
 RailCamera::RailCamera()
 {

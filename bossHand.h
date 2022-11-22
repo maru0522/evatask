@@ -205,3 +205,6 @@ const DirectX::XMFLOAT3 operator*(float s, const DirectX::XMFLOAT3& v);
 const DirectX::XMFLOAT3 operator+= (DirectX::XMFLOAT3& v1, const DirectX::XMFLOAT3& v2);
 
 const DirectX::XMFLOAT3 operator+(const DirectX::XMFLOAT3& v1, const DirectX::XMFLOAT3& v2);
+
+float length(DirectX::XMFLOAT3& a);
+void normalize(DirectX::XMFLOAT3& a);

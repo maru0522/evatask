@@ -5,24 +5,7 @@
 //const Vector3 lerp(const Vector3& start, const Vector3& end, const float t);
 
 
-float length(DirectX::XMFLOAT3& a)
-{
-	return sqrtf(a.x * a.x + a.y * a.y + a.z * a.z);
-}
 
-void normalize(DirectX::XMFLOAT3& a)
-{
-	float len = length(a);
-	if (len != 0)
-	{
-		a.x /= len;
-		a.y /= len;
-		a.z /= len;
-		return;
-	}
-
-	return;
-}
 
 
 

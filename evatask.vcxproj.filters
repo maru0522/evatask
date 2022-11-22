@@ -46,6 +46,12 @@
     <Filter Include="リソース ファイル\shader">
       <UniqueIdentifier>{e3667543-9039-4809-bddd-a57c5f67affa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\boss">
+      <UniqueIdentifier>{dbfd422f-1e68-4b1d-a57c-32183ba21b9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\boss">
+      <UniqueIdentifier>{a12f4053-a90b-4e5a-a7af-2c13a1a7816d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -101,6 +107,15 @@
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="bossHand.cpp">
+      <Filter>ソース ファイル\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="bosstest.cpp">
+      <Filter>ソース ファイル\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="RailCamera.cpp">
+      <Filter>ソース ファイル\object\3d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +198,15 @@
     </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="bossHand.h">
+      <Filter>ヘッダー ファイル\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bosstest.h">
+      <Filter>ヘッダー ファイル\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="RailCamera.h">
+      <Filter>ヘッダー ファイル\object\3d</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

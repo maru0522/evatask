@@ -26,7 +26,7 @@ public:
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
 	void Initialize(Camera* camera/*, bosstest* boss*/);
-	void ResourceInitialize();
+	//void ResourceInitialize();
 
 	/// <summary>
 	/// 更新
@@ -71,7 +71,7 @@ public:
 
 	WorldCoordinate GetMat();
 
-	XMFLOAT2 poskure() { return bosstarget->GetPosition(); }
+	//XMFLOAT2 poskure() { return bosstarget->GetPosition(); }
 
 	bool LockOn();
 
@@ -88,7 +88,7 @@ public:
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; };
 
 
-	void reset();
+	//void reset();
 
 private:
 
@@ -100,9 +100,9 @@ private:
 	static const int gunbitnum = 4;
 
 	//ワールド変換データ
-	Obj3d worldtransform{"Resources/3dModels/player/player.obj", camera};
+	Obj3d player{"Resources/3dModels/player/player.obj", camera};
 	Obj3d arrow{ "Resources/3dModels/bit/bit.obj", camera };
-	Obj3d target[gunbitnum]
+	Obj3d gunbit[gunbitnum]
 	{ 
 		Obj3d{"Resources/3dModels/cube/cube.obj", camera},
 		Obj3d{"Resources/3dModels/cube/cube.obj", camera},

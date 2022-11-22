@@ -57,7 +57,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     Model::Load("Resources/3dModels/muso/muso.obj");
 
     XAudio::Initialize();
-    XAudio::SoundData soundData1 = XAudio::Load("Resources/Sounds/Alarm01.wav");
+    XAudio::SoundData soundData1 = XAudio::Load("Resources/Sounds/SE_footstep.wav");
     XAudio::SoundData soundData2 = XAudio::Load("Resources/Sounds/punpkin_mansion.wav");
 
 #pragma endregion

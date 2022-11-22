@@ -7,7 +7,7 @@ GraphicsPipeline* Obj3d::graphicsPipeline_;
 Obj3d::Obj3d(const fsPath& pathAndObjName)
 {
     model_.SetMODEL_KEY(pathAndObjName);
-    model_.SetMODEL_VALUE(Model::GetMODEL_VALUE(pathAndObjName)); // ‚È‚ñ‚©‚±‚ê¦‚­ŠëŒ¯‚È“n‚µ•û‚È‹C‚ª‚·‚é
+    model_.SetMODEL_VALUE(*Model::GetMODEL_VALUE(pathAndObjName)); // ‚È‚ñ‚©‚±‚ê¦‚­ŠëŒ¯‚È“n‚µ•û‚È‹C‚ª‚·‚é
 
     // ‚±‚±‚ÅŽ~‚Ü‚Á‚Ä‚é‚È‚ç.mtl“à‚Å³‚µ‚¢‰æ‘œ‚ª‹L‚³‚ê‚Ä‚¢‚È‚¢‰Â”\«B
     srvGpuHandleCopy_ = Texture::GetTextureInfo(model_.GetModelValueInfo()->material_.texKey).srvGpuHandle_;
@@ -20,7 +20,7 @@ Obj3d::Obj3d(const fsPath& pathAndObjName, Camera* pCamera)
     worldCoordinate_.SetCamera(pCamera_);
 
     model_.SetMODEL_KEY(pathAndObjName);
-    model_.SetMODEL_VALUE(Model::GetMODEL_VALUE(pathAndObjName)); // ‚È‚ñ‚©‚±‚ê¦‚­ŠëŒ¯‚È“n‚µ•û‚È‹C‚ª‚·‚é
+    model_.SetMODEL_VALUE(*Model::GetMODEL_VALUE(pathAndObjName)); // ‚È‚ñ‚©‚±‚ê¦‚­ŠëŒ¯‚È“n‚µ•û‚È‹C‚ª‚·‚é
 
     // ‚±‚±‚ÅŽ~‚Ü‚Á‚Ä‚é‚È‚ç.mtl“à‚Å³‚µ‚¢‰æ‘œ‚ª‹L‚³‚ê‚Ä‚¢‚È‚¢‰Â”\«B
     srvGpuHandleCopy_ = Texture::GetTextureInfo(model_.GetModelValueInfo()->material_.texKey).srvGpuHandle_;

@@ -22,6 +22,7 @@ public: // ŠÖ”
     void Update(void);
     void Draw(void);
 
+    DirectX::XMFLOAT3 getWorldPos();
 
 public: // •Ï”
     Camera* pCamera_{ nullptr };

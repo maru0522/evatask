@@ -56,10 +56,10 @@ bosstest::~bosstest()
 	}
 }
 
-void bosstest::Initialize(Camera* camera,DirectX::XMFLOAT3 pos)
+void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 {
 
-	worldTransform = Obj3d("Resources/3dModels/core/core.obj", camera);
+	worldTransform = Obj3d("Resources/3dModels/core/core.obj", camera->getView());
 
 	//引数で受け取った初期座標をセット
 	worldTransform.worldCoordinate_.position_ = pos;
@@ -71,7 +71,7 @@ void bosstest::Initialize(Camera* camera,DirectX::XMFLOAT3 pos)
 	{
 
 		bossHand* newHand=new bossHand();
-		newHand->init({ 3.0f,3.0f,3.0f }, {}, { sinf(i * 2) * 5,cosf(i * 2) * 5,200.0f }, camera);
+		newHand->init({ 3.0f,3.0f,3.0f }, {}, { sinf(i * 2) * 5,cosf(i * 2) * 5,200.0f }, camera->getView());
 
 		hand.push_back(newHand);
 	}

@@ -152,6 +152,7 @@
     <ClCompile Include="bossHand.cpp" />
     <ClCompile Include="bosstest.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="easing.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -163,6 +164,8 @@
     <ClCompile Include="Obj3d.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="RailCamera.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="SharedStruct.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -222,6 +225,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="CtrlFPS.h" />
+    <ClInclude Include="easing.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GraphicsPipeline.h" />
     <ClInclude Include="InitDirectX.h" />
@@ -230,6 +234,8 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Obj3d.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="RailCamera.h" />
     <ClInclude Include="SharedStruct.h" />
     <ClInclude Include="Sprite.h" />

@@ -9,25 +9,35 @@ GameScene* GameScene::GetInstance(void)
 
 void GameScene::Initialize(void)
 {
-    //objT2.worldCoordinate_.position_ = { 15,0,0 };
-    //muso.worldCoordinate_.position_ = { -15,0,0 };
+    objT2.worldCoordinate_.position_ = { 15,0,0 };
+    muso.worldCoordinate_.position_ = { -15,0,0 };
+
+    railcamera.Initialize({}, {});
+
+    boss.Initialize(&railcamera, {0,0,50});
+    player.Initialize(&railcamera, &boss);
 }
 
 void GameScene::Update(void)
 {
     cameraT.Update();
+    railcamera.Update();
 
     if (KEYS::IsDown(DIK_W)) {
         cameraT.eye_.z += 5;
+        z += 5;
     }
     if (KEYS::IsDown(DIK_S)) {
         cameraT.eye_.z -= 5;
+        z -= 5;
     }
     if (KEYS::IsDown(DIK_A)) {
         cameraT.eye_.x -= 5;
+        x -= 5;
     }
     if (KEYS::IsDown(DIK_D)) {
         cameraT.eye_.x += 5;
+        x += 5;
     }
 
     if (KEYS::IsTrigger(DIK_SPACE)) {
@@ -37,16 +47,26 @@ void GameScene::Update(void)
         XAudio::PlayWave(soundData1, 0.1f);
     }
 
-    //objT.Update();
-    //objT2.Update();
-    //muso.Update();
+    objT.Update();
+    objT2.Update();
+    muso.Update();
+
+    boss.Update({});
+    player.Update(&railcamera);
+
+    railcamera.setPos({ x,0,z });
+
+
 }
 
 void GameScene::Draw(void)
 {
-    //objT.Draw();
-    //objT2.Draw();
-    //muso.Draw();
+    objT.Draw();
+    objT2.Draw();
+    muso.Draw();
+    boss.Draw();
+    player.Draw(&railcamera);
+    player.DrawUI(&railcamera);
 }
 
 void GameScene::AudioFinalize(void)

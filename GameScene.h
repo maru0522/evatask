@@ -2,6 +2,9 @@
 #include "Audio.h"
 #include "Camera.h"
 #include "Obj3d.h"
+#include "bosstest.h"
+#include "RailCamera.h"
+#include "Player.h"
 
 class GameScene
 {
@@ -21,9 +24,18 @@ public:
     Camera cameraT{};
 
     // égópÇ∑ÇÈïœêîêÈåæ
-    //Obj3d objT{ "Resources/3dModels/cube/cube.obj", &cameraT };
-    //Obj3d objT2{ "Resources/3dModels/cube/cube.obj", &cameraT };
-    //Obj3d muso{ "Resources/3dModels/muso/muso.obj" , &cameraT };
+    Obj3d objT{ "Resources/3dModels/player/Player.obj", &cameraT };
+    Obj3d objT2{ "Resources/3dModels/bit/bit.obj", &cameraT };
+    Obj3d muso{ "Resources/3dModels/muso/muso.obj" , &cameraT };
+
+    RailCamera railcamera;
+
+    bosstest boss;
+    
+    Player player;
+
+    float x = 0;
+    float z = 0;
 
 private:
     GameScene(void) = default;

@@ -85,3 +85,15 @@ void Obj3d::Draw(void)
     // 描画コマンドリスト
     iDX->GetCommandList()->DrawIndexedInstanced((uint32_t)model_.GetModelValueInfo()->indices_.size(), 1, 0, 0, 0);
 }
+
+DirectX::XMFLOAT3 Obj3d::getWorldPos()
+{
+    DirectX::XMFLOAT3 ans;
+
+    ans.x = worldCoordinate_.matWorld_.r[3].m128_f32[0];
+    ans.y = worldCoordinate_.matWorld_.r[3].m128_f32[1];
+    ans.z = worldCoordinate_.matWorld_.r[3].m128_f32[2];
+
+    return ans;
+
+}

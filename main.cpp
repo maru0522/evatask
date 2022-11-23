@@ -56,6 +56,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // 3d.obj読み込み
     Model::Load("Resources/3dModels/cube/cube.obj");
     Model::Load("Resources/3dModels/muso/muso.obj");
+    Model::Load("Resources/3dModels/core/core.obj");
 
     XAudio::Initialize();
 

@@ -145,6 +145,11 @@ void bosstest::bossStart(DirectX::XMFLOAT3 pos)
 	}
 }
 
+void bosstest::SetStartFlag(bool flag)
+{
+	isbossStart = flag;
+}
+
 void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 {
 
@@ -1446,6 +1451,15 @@ void bosstest::setPressEnd()
 		hand[7]->setdefaultPos(worldTransform.worldCoordinate_.position_ + (bossSft * setbossCubeDistance));
 
 }
+
+//DirectX::XMFLOAT2 bosstest::GetStartTimer()
+//{
+//	DirectX::XMFLOAT2 timekasu = { timeCount,maxbossStartTime };
+//
+//	return timekasu;
+//}
+
+
 
 int RNG(int min, int max, bool preciseMode)
 {

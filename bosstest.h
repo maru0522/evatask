@@ -32,6 +32,9 @@ public:
 
 	//ŠJŽnˆÊ’u pos
 	void bossStart(DirectX::XMFLOAT3 pos);
+	bool GetStartFlag() { return isbossStart; };
+
+	void SetStartFlag(bool flag);
 
 	void cubeActionDecision();
 
@@ -102,7 +105,7 @@ public:
 
 	void setPressEnd();
 
-
+	//DirectX::XMFLOAT2 GetStartTimer();
 
 	int getHP() { return bossHP; };
 

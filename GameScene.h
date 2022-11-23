@@ -76,7 +76,13 @@ private:
     const float TitleCameraTime = 60;
     bool StartFlag = false;
 
-    int sceneNum = GameOver;
+    float BossCameraTimer=0;
+    const float BossCameraTime = 200;
+    
+
+    bool BattleFlag = false;
+
+    int sceneNum = Title;
 
     bool BlackCcr = false;
     float BlkScrTimer;

@@ -50,10 +50,13 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 
 	moveVec = { 0,0,0 };
 
-	move_speed = 0.3f;
+	move_speed = 0.4f;
 
 	hopper_dash = false;
 	
+	Helth = 100;
+	Shield = 50;
+	MaxShield = 50;
 
 	cooltime = 0;
 
@@ -84,6 +87,11 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 
 	height = Window::GetInstance()->height_;
 	width  = Window::GetInstance()->width_;
+
+	HelthBar.SetPosition({ 440.0f,660.0f });
+	HelthBar.SetSize({ Helth * 4.0f,32.0f });
+	ShieldBar.SetPosition({ 440.0f,660.0f });
+	ShieldBar.SetSize({ Shield * 8.0f,32.0f });
 
 	Reticle.SetPosition({width/2.0f,height/2.0f});
 	Reticle.SetSize({ 1280.0f,720.0f });
@@ -342,10 +350,11 @@ void Player::Update(RailCamera* camera)
 			latetime = firelate;
 		}
 		latetime--;
-
+		move_speed = 0.1f;
 	}
 	else
 	{
+		move_speed = 0.4f;
 		NormalTimer = 0;
 	}
 
@@ -367,11 +376,25 @@ void Player::Update(RailCamera* camera)
 		}
 		gunbit[i].Update();
 	}
+	Shieldregencool--;
+	MutekiTimer--;
+	if (Shieldregencool < 0)
+	{
+		
+		Shield++;
+		if (Shield > MaxShield)
+		{
+			Shield = MaxShield;
+		}
+	}
 
 	kyozou.Update();
 
 	player.Update();
-
+	HelthBar.SetSize({ Helth * 4.0f,32.0f });
+	HelthBar.Update();
+	ShieldBar.SetSize({ Shield * 8.0f,32.0f });
+	ShieldBar.Update();
 	Reticle.Update();
 	bosstarget.Update();
 
@@ -412,7 +435,7 @@ void Player::Draw(RailCamera* camera)
 {
 	//3Dƒ‚ƒfƒ‹‚ð•`‰æ
 	player.Draw();
-
+	
 	for (size_t i = 0; i < gunbitnum; i++)
 	{
 		gunbit[i].Draw();
@@ -432,6 +455,8 @@ void Player::Draw(RailCamera* camera)
 void Player::DrawUI(RailCamera* camera)
 {
 	Reticle.Draw();
+	HelthBar.Draw();
+	ShieldBar.Draw();
 	if (LockOn(camera))
 	{
 		bosstarget.Draw();
@@ -676,6 +701,35 @@ int Player::SetDamege(int attacknum)
 
 void Player::OnCollision()
 {
+	if (MutekiTimer < 0)
+	{
+		MaxShield -= 5;
+		MutekiTimer = 180;
+		if(Shield<0)
+		{
+			Helth -= 20;
+		}
+		if (Shield > 0)
+		{
+			Shield -= 10;
+		}
+		Shieldregencool = 600;
+	}
+	
+
+	
+	
+	if (Helth < 0)
+	{
+		isDead = true;
+	}
+	
+
+}
+
+bool Player::GetIsdead()
+{
+	return isDead;
 }
 
 void Player::reset()

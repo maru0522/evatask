@@ -40,7 +40,7 @@ void GameScene::Initialize(void)
     TitleKanban.worldCoordinate_.position_ = { -20.0f,-5.0f,-350.0f };
     TitleKanban.worldCoordinate_.rotation_.y = XMConvertToRadians(30.0f);
     TitleKanban.Update();
-    boss.Initialize(&railcamera, {0,0,50});
+    boss.Initialize(&railcamera, {0,100.0f,0});
     player.Initialize(&railcamera, &boss);
 }
 
@@ -173,38 +173,79 @@ void GameScene::Update(void)
 
        
         AllCol();
-        if (player.GetWorldPosition().x > 25.0f && player.GetWorldPosition().z < -200.0f)
+        if (!BattleFlag)
         {
-            player.SetWorldPosition({ 25.0f,player.GetWorldPosition().y,player.GetWorldPosition().z });
+            if (player.GetWorldPosition().x > 25.0f && player.GetWorldPosition().z < -200.0f)
+            {
+                player.SetWorldPosition({ 25.0f,player.GetWorldPosition().y,player.GetWorldPosition().z });
+            }
+            if (player.GetWorldPosition().x < -25.0f && player.GetWorldPosition().z < -200.0f)
+            {
+                player.SetWorldPosition({ -25.0f,player.GetWorldPosition().y,player.GetWorldPosition().z });
+            }
+            if (player.GetWorldPosition().z < -400.0f)
+            {
+                player.SetWorldPosition({ player.GetWorldPosition().x,player.GetWorldPosition().y,-400.0f });
+            }
         }
-        if (player.GetWorldPosition().x < -25.0f && player.GetWorldPosition().z < -200.0f)
+        if (player.GetWorldPosition().z > -200.0f&&!BattleFlag)
         {
-            player.SetWorldPosition({ -25.0f,player.GetWorldPosition().y,player.GetWorldPosition().z });
+            BattleFlag = true;
+            BossCameraTimer = 0;
+            boss.SetStartFlag(true);
+            sceneNum = MoveScene1;
         }
-        if (player.GetWorldPosition().z < -400.0f)
+        if (BattleFlag)
         {
-            player.SetWorldPosition({ player.GetWorldPosition().x,player.GetWorldPosition().y,-400.0f });
+            if (player.GetWorldPosition().x > 200.0f)
+            {
+                player.SetWorldPosition({ 200.0f,player.GetWorldPosition().y,player.GetWorldPosition().z });
+            }
+            if (player.GetWorldPosition().x < -200.0f)
+            {
+                player.SetWorldPosition({ -200.0f,player.GetWorldPosition().y,player.GetWorldPosition().z });
+            }
+            if (player.GetWorldPosition().z < -200.0f)
+            {
+                player.SetWorldPosition({ player.GetWorldPosition().x,player.GetWorldPosition().y,-200.0f });
+            }
+            if (player.GetWorldPosition().z > 200.0f)
+            {
+                player.SetWorldPosition({ player.GetWorldPosition().x,player.GetWorldPosition().y,200.0f });
+            }
+            boss.Update(player.GetWorldPosition());
         }
-
-
         railcamera.setPos(XMFLOAT3((sinf(cameraRotateY) * 20 + player.GetWorldPosition().x), (sinf(-cameraRotateX) * 20 + player.GetWorldPosition().y + 5), (cosf(cameraRotateY) * 20 + player.GetWorldPosition().z)));
         railcamera.setRotate({ rotateX,rotateY,0 });
 
-        boss.Update(player.GetWorldPosition());
+        
         YUKA.Update();
         YUKA2.Update();
         TitlePoll.Update();
         TitleKanban.Update();
+        if (player.GetIsdead())
+        {
+            sceneNum = GameOver;
+        }
+
+        break;
+    case MoveScene1:
+        
+        boss.bossStart({ 0,100.0f,0 });
+        if (!boss.GetStartFlag())
+        {
+            sceneNum = Main;
+        }
 
 
         break;
-
     case Result:
         if (KEYS::IsTrigger(DIK_G))
         {
             player.Initialize(&railcamera, &boss);
             StartFlag = false;
             TitleCameraTimer = 0;
+            BattleFlag = false;
             sceneNum = Title;
         }
         break;
@@ -241,6 +282,7 @@ void GameScene::Update(void)
                 StartFlag = false;
                 TitleCameraTimer = 0;
                 BlkScrTimer = 0;
+                BattleFlag = false;
                 sceneNum = Title;
             }
 
@@ -280,9 +322,18 @@ void GameScene::Draw(void)
         YUKA2.Draw();
         TitlePoll.Draw();
         TitleKanban.Draw();
-        boss.Draw();
+        if(BattleFlag)boss.Draw();
         player.Draw(&railcamera);
         player.DrawUI(&railcamera);
+        break;
+
+    case MoveScene1:
+        YUKA.Draw();
+        YUKA2.Draw();
+        TitlePoll.Draw();
+        TitleKanban.Draw();
+        boss.Draw();
+        player.Draw(&railcamera);
         break;
     case Result:
         break;

@@ -5,6 +5,7 @@
 #include "bosstest.h"
 #include "RailCamera.h"
 #include "Player.h"
+#include "Particle.h"
 
 class GameScene
 {
@@ -21,12 +22,7 @@ public:
     XAudio::SoundData soundData1 = XAudio::Load("Resources/Sounds/SE_footstep.wav");
     XAudio::SoundData soundData2 = XAudio::Load("Resources/Sounds/punpkin_mansion.wav");
 
-    Camera cameraT{};
-
     // g—p‚·‚é•Ï”éŒ¾
-    Obj3d objT{ "Resources/3dModels/player/Player.obj", &cameraT };
-    Obj3d objT2{ "Resources/3dModels/bit/bit.obj", &cameraT };
-    Obj3d muso{ "Resources/3dModels/muso/muso.obj" , &cameraT };
 
     RailCamera railcamera;
 
@@ -36,6 +32,8 @@ public:
 
     float x = 0;
     float z = 0;
+
+    Particle p1_;
 
 private:
     GameScene(void) = default;

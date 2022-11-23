@@ -86,6 +86,12 @@ void Obj3d::Draw(void)
     iDX->GetCommandList()->DrawIndexedInstanced((uint32_t)model_.GetModelValueInfo()->indices_.size(), 1, 0, 0, 0);
 }
 
+void Obj3d::SetCamera(Camera* pCamera)
+{
+    pCamera_ = pCamera;
+    worldCoordinate_.SetCamera(pCamera_);
+}
+
 DirectX::XMFLOAT3 Obj3d::getWorldPos()
 {
     DirectX::XMFLOAT3 ans;

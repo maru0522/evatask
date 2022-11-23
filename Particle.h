@@ -2,17 +2,29 @@
 #include "Obj3d.h"
 #include "Util.h"
 #include "Camera.h"
+#include "easing.h"
+#include "RailCamera.h"
+#include <DirectXMath.h>
+#include <array>
 
 class Particle
 {
 private:
-    Camera* camera{ nullptr };
+    static constexpr float_t blownValue_{ 0.5f };
+    static constexpr int32_t maxFrame_{ 180 };
 
-    Obj3d cube1{ "Resources/3dModels/cube/cube.obj", camera };
-    Obj3d cube2{ "Resources/3dModels/cube/cube.obj", camera };
-    Obj3d cube3{ "Resources/3dModels/cube/cube.obj", camera };
-    Obj3d cube4{ "Resources/3dModels/cube/cube.obj", camera };
-    Obj3d cube5{ "Resources/3dModels/cube/cube.obj", camera };
+public:
+    void Activate(RailCamera* pCamera, DirectX::XMFLOAT3 startPos);
+    void Update(void);
+    void Draw(void);
 
-    Util::Timer timer_{};
+private:
+    bool isActive{ false };
+
+    std::array<Obj3d, 8> cubes_;
+    //std::array<float_t, 8> randoms_;
+
+    DirectX::XMFLOAT3 startPos_{};
+
+    float_t currentFrame_{ 0 };
 };

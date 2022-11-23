@@ -39,6 +39,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // Input初期化
     KEYS::Initialize();
     DPAD::Initialize();
+    XPAD::Initialize();
 
 #pragma region 描画初期化処理
     // graphicsPipeline初期化
@@ -79,7 +80,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma region DirextX毎フレーム処理
         // キーボード情報の取得
         KEYS::Update();
-        DPAD::Update();
+        XPAD::Update();
         // 更新処理　ここから
 
         gameS->Update();

@@ -21,9 +21,9 @@ public:
     Camera cameraT{};
 
     // g—p‚·‚é•Ï”éŒ¾
-    Obj3d objT{ "Resources/3dModels/cube/cube.obj", &cameraT };
-    Obj3d objT2{ "Resources/3dModels/cube/cube.obj", &cameraT };
-    Obj3d muso{ "Resources/3dModels/muso/muso.obj" , &cameraT };
+    //Obj3d objT{ "Resources/3dModels/cube/cube.obj", &cameraT };
+    //Obj3d objT2{ "Resources/3dModels/cube/cube.obj", &cameraT };
+    //Obj3d muso{ "Resources/3dModels/muso/muso.obj" , &cameraT };
 
 private:
     GameScene(void) = default;

@@ -117,6 +117,9 @@
     <ClCompile Include="RailCamera.cpp">
       <Filter>ソース ファイル\object\3d</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicVS.hlsl" />
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="RailCamera.h">
       <Filter>ヘッダー ファイル\object\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

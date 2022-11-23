@@ -9,8 +9,8 @@ GameScene* GameScene::GetInstance(void)
 
 void GameScene::Initialize(void)
 {
-    objT2.worldCoordinate_.position_ = { 15,0,0 };
-    muso.worldCoordinate_.position_ = { -15,0,0 };
+    //objT2.worldCoordinate_.position_ = { 15,0,0 };
+    //muso.worldCoordinate_.position_ = { -15,0,0 };
 }
 
 void GameScene::Update(void)
@@ -30,13 +30,6 @@ void GameScene::Update(void)
         cameraT.eye_.x += 5;
     }
 
-    if (KEYS::IsDown(DIK_LEFTARROW)) {
-        objT.worldCoordinate_.position_.x -= 2;
-    }
-    if (KEYS::IsDown(DIK_RIGHTARROW)) {
-        objT.worldCoordinate_.position_.x += 2;
-    }
-
     if (KEYS::IsTrigger(DIK_SPACE)) {
         XAudio::PlayWave(soundData2, 0.03f);
     }
@@ -44,16 +37,16 @@ void GameScene::Update(void)
         XAudio::PlayWave(soundData1, 0.1f);
     }
 
-    objT.Update();
-    objT2.Update();
-    muso.Update();
+    //objT.Update();
+    //objT2.Update();
+    //muso.Update();
 }
 
 void GameScene::Draw(void)
 {
-    objT.Draw();
-    objT2.Draw();
-    muso.Draw();
+    //objT.Draw();
+    //objT2.Draw();
+    //muso.Draw();
 }
 
 void GameScene::AudioFinalize(void)

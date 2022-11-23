@@ -161,6 +161,7 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Obj3d.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="RailCamera.cpp" />
     <ClCompile Include="SharedStruct.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Obj3d.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="RailCamera.h" />
     <ClInclude Include="SharedStruct.h" />
     <ClInclude Include="Sprite.h" />

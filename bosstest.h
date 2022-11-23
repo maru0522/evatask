@@ -75,7 +75,7 @@ public:
 	void bossPushUp(DirectX::XMFLOAT3 player);
 
 	//pos???????????? ‘S•”‚Á‚Ä‚­‚é
-	Obj3d getPos() { return worldTransform; };
+	WorldCoordinate getPos() { return worldTransform.worldCoordinate_; };
 
 	//hand‚ğ‚Á‚Ä‚­‚é
 	std::vector<bossHand*> getHand() { return hand; };

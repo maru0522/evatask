@@ -52,6 +52,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     Texture::Initialize();
     Texture::Load("Resources/reimu.png");
     Texture::Load("Resources/mario.jpg");
+    Texture::Load("Resources/mark.png");
+    Texture::Load("Resources/Reticle.png");
 
     // 3d.obj読み込み
     Model::Load("Resources/3dModels/cube/cube.obj");

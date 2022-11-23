@@ -9,57 +9,16 @@
 #include"Camera.h"
 #include"WorldCoordinate.h"
 #include"Sprite.h"
+#include"bosstest.h"
+#include"RailCamera.h"
+
 
 using namespace DirectX;
 using namespace Input;
 
 class Player
 {
-	struct Vector3 : public XMFLOAT3 {
-
-		Vector3() = default;
-		Vector3(float x, float y, float z)
-		{
-			this->x = x; this->y = y; this->z = z;
-		}
-		//コンストラクタ
-		Vector3(const XMVECTOR& other) :XMFLOAT3() {
-			XMVECTOR temp = other;
-			XMStoreFloat3(this, temp);
-		}
-
-		inline BOOL operator == (const Vector3& r) const { return x == r.x && y == r.y && z == r.z; }
-		inline BOOL operator != (const Vector3& r) const { return x != r.x || y != r.y || z != r.z; }
-		inline XMVECTOR operator *(const float r) const { return Vector3(x * r, y * r, z * r); }
-		inline XMVECTOR operator /(const float r) const { return Vector3(x / r, y / r, z / r); }
-
-		// ベクトルの内積
-		float VDot(Vector3 In) { return x * In.x + y * In.y + z * In.z; }
-		// ベクトルの外積
-		Vector3 VCross(Vector3 In) { return Vector3(y * In.z - z * In.y, z * In.x - x * In.z, x * In.y - y * In.x); }
-		// ベクトルのスケーリング
-		Vector3 VScale(float Scale) { Vector3 Result = { x * Scale, y * Scale, z * Scale }; return Result; }
-
-		//代入
-		Vector3& operator=(const XMVECTOR& other) {
-			XMVECTOR temp = other;
-			XMStoreFloat3(this, temp);
-			return *this;
-		}
-		//キャスト
-		operator XMVECTOR() const {
-			return XMLoadFloat3(this);
-		}
-		//長さ
-		float Length() const {
-			return (static_cast<Vector3>(XMVector3Length(XMVECTOR(*this)))).x;
-		}
-		//正規化
-		void normalize() {
-			*this = XMVector3Normalize(XMVECTOR(*this));
-		}
-	};
-
+	
 public:
 	Player();
 	~Player();
@@ -68,20 +27,20 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(Camera* camera/*, bosstest* boss*/);
+	void Initialize(RailCamera* camera, bosstest* boss);
 	//void ResourceInitialize();
 
 	/// <summary>
 	/// 更新
 	/// </summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
-	void Update(Camera viewProjection);
+	void Update();
 
 	/// <summary>
 	/// 描画
 	/// </summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
-	void Draw(Camera& viewProjection);
+	void Draw();
 
 	void DrawUI();
 
@@ -131,29 +90,29 @@ public:
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; };
 
 
-	//void reset();
+	void reset();
 
 private:
+	RailCamera* Rcamera = nullptr;
 
-	Camera* camera{nullptr};
-
-	//bosstest* boss = nullptr;
-
+	bosstest* boss = nullptr;
 
 	static const int gunbitnum = 4;
 
 	//ワールド変換データ
-	Obj3d player{"Resources/3dModels/player/player.obj", camera};
-	Obj3d arrow{ "Resources/3dModels/bit/bit.obj", camera };
+	Obj3d player{"Resources/3dModels/player/player.obj", Rcamera->getView()};
+	Obj3d arrow{ "Resources/3dModels/bit/bit.obj", Rcamera->getView() };
 	Obj3d gunbit[gunbitnum]
 	{ 
-		Obj3d{"Resources/3dModels/cube/cube.obj", camera},
-		Obj3d{"Resources/3dModels/cube/cube.obj", camera},
-		Obj3d{"Resources/3dModels/cube/cube.obj", camera},
-		Obj3d{"Resources/3dModels/cube/cube.obj", camera}
-	};
+		Obj3d{"Resources/3dModels/cube/cube.obj", Rcamera->getView()},
+		Obj3d{"Resources/3dModels/cube/cube.obj", Rcamera->getView()},
+		Obj3d{"Resources/3dModels/cube/cube.obj", Rcamera->getView()},
+		Obj3d{"Resources/3dModels/cube/cube.obj", Rcamera->getView()}
+	};											  
+	Sprite Reticle{"Resources/Reticle.png",CMode::PATH};
+	Sprite bosstarget{ "Resources/mark.png",CMode::PATH };
 
-	WorldCoordinate kyozou{camera};
+	WorldCoordinate kyozou{ Rcamera->getView() };
 
 	XMFLOAT3 nannka[gunbitnum];
 
@@ -170,8 +129,6 @@ private:
 	//弾
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 
-	std::unique_ptr<Sprite> Reticle;
-	std::unique_ptr<Sprite> bosstarget;
 
 	int bulletCT = 0;
 

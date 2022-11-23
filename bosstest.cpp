@@ -115,6 +115,34 @@ void bosstest::reset()
 
 }
 
+void bosstest::bossStart(DirectX::XMFLOAT3 pos)
+{
+	if (isbossStart)
+	{
+
+		if (timeCount < maxbossStartTime)
+		{
+
+			timeCount++;
+
+			worldTransform.worldCoordinate_.position_ = lerp(pos, { pos.x, 7, pos.z }, timeCount / maxbossStartTime);
+
+			worldTransform.Update();
+
+			setPressHandPos();
+
+		}
+
+		if (timeCount == maxbossStartTime)
+		{
+
+			timeCount = 0;
+			isbossStart = false;
+		}
+
+	}
+}
+
 void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 {
 
@@ -884,6 +912,11 @@ void bosstest::playerAttackReturnL()
 	{
 		hand[i]->playerAttackReturn();
 	}
+}
+
+void bosstest::setisbossStart(bool flag)
+{
+	isbossStart = flag;
 }
 
 void bosstest::setisbossPunch(bool flag)

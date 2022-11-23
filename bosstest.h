@@ -30,6 +30,9 @@ public:
 	/// <param name="viewProjection">ビュープロジェクション</param>
 	void Draw();
 
+	//開始位置 pos
+	void bossStart(DirectX::XMFLOAT3 pos);
+
 	void cubeActionDecision();
 
 	//ワールド座標を取得
@@ -39,6 +42,8 @@ public:
 	void setPos(DirectX::XMFLOAT3 pos);
 
 	void setRotate(DirectX::XMFLOAT3 rotate);
+
+	void setisbossStart(bool flag);
 
 	//handのパンチをするためのフラグを変更
 	void setisAttackFlagL(bool flag, DirectX::XMFLOAT3 player);
@@ -248,6 +253,9 @@ private:
 		{ 1,0,0 },
 		{ 1,1,0 },
 	};
+
+	bool isbossStart = false;
+	float maxbossStartTime = 200;
 
 };
 

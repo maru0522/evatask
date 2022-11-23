@@ -120,44 +120,44 @@ private:
 	float ActionType6TimeCount = 0;
 
 	//動作時間
-	float maxTime = 50.0f;
-	float maxReturnTime = 20.0f;
-	float maxReturnAttackTime = 10.0f;
+	float maxTime = 15.0f;
+	float maxReturnTime = 15.0f;
+	float maxReturnAttackTime = 8.0f;
 
 	//プレス
-	float maxSetPressTime = 20.0f;
-	float maxResetPressTime = 50.0f;
+	float maxSetPressTime = 15.0f;
+	float maxResetPressTime = 40.0f;
 
 	//石落とし
-	float maxTargetMoveTime = 35.0f;
-	float maxFallTime = 10.0f;
-	float maxFallReturnTime = 10.0f;
-	float maxUpFallTime = 10.0f;
+	float maxTargetMoveTime = 20.0f;
+	float maxFallTime = 8.0f;
+	float maxFallReturnTime = 8.0f;
+	float maxUpFallTime = 8.0f;
 
 	//第二段階用石落とし
-	float maxUpPillarFallTime = 20.0f;
+	float maxUpPillarFallTime = 10.0f;
 
 	//ビーム
-	float maxBeamTime = 30.0f;
-	float maxFirstBeamTime = 20.0f;
+	float maxBeamTime = 15.0f;
+	float maxFirstBeamTime = 15.0f;
 
 	//回転
-	float maxPillarRollTime = 30.0f;
+	float maxPillarRollTime = 20.0f;
 
 	//突き上げ
-	float maxPushUpFallTime = 10.0f;
-	float maxPushUpTargetMoveTime = 35.0f;
-	float maxPushUpUpTime = 10.0f;
-	float maxPushUpUpReturnTime = 20.0f;
+	float maxPushUpFallTime = 8.0f;
+	float maxPushUpTargetMoveTime = 15.0f;
+	float maxPushUpUpTime = 8.0f;
+	float maxPushUpUpReturnTime = 15.0f;
 	float maxPushUpReturnTime = 10.0f;
-	float maxPushUpDefaultUpTime = 20.0f;
+	float maxPushUpDefaultUpTime = 15.0f;
 
 	//ウエイト
 	float waitTime = 0;
 
 	//待つ時間
-	float attackWaitTime = 40;
-	float returnWaitTime = 160;
+	float attackWaitTime = 30;
+	float returnWaitTime = 120;
 
 	float stoneFallWaitTime = 40;
 	float stoneFallReturnWaitTime = 10;

@@ -36,6 +36,8 @@ public:
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Update(RailCamera* camera);
 
+	void GameOverUpdate();
+
 	/// <summary>
 	/// 描画
 	/// </summary>
@@ -92,6 +94,7 @@ public:
 
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; };
 
+	bool GetIsdead();
 
 	void reset();
 
@@ -115,6 +118,9 @@ private:
 	Sprite Reticle{"Resources/Reticle.png",CMode::PATH};
 	Sprite bosstarget{ "Resources/mark.png",CMode::PATH };
 
+	Sprite HelthBar{ "Resources/Helth.png",CMode::PATH };
+	Sprite ShieldBar{ "Resources/Shield.png",CMode::PATH };
+
 	WorldCoordinate kyozou;
 
 	XMFLOAT3 nannka[gunbitnum];
@@ -122,6 +128,12 @@ private:
 	
 	int Helth;
 	int Shield;
+	int MaxShield;
+
+	int Shieldregencool;
+
+	int MutekiTimer;
+
 	
 	bool isDead;
 

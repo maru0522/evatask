@@ -3,6 +3,7 @@
 #include "Obj3d.h"
 #include "bossHand.h"
 #include "RailCamera.h"
+#include "Sprite.h"
 #include <memory>
 #include <vector>
 
@@ -30,6 +31,12 @@ public:
 	/// <param name="viewProjection">ビュープロジェクション</param>
 	void Draw();
 
+	//開始位置 pos
+	void bossStart(DirectX::XMFLOAT3 pos);
+	bool GetStartFlag() { return isbossStart; };
+
+	void SetStartFlag(bool flag);
+
 	void cubeActionDecision();
 
 	//ワールド座標を取得
@@ -39,6 +46,8 @@ public:
 	void setPos(DirectX::XMFLOAT3 pos);
 
 	void setRotate(DirectX::XMFLOAT3 rotate);
+
+	void setisbossStart(bool flag);
 
 	//handのパンチをするためのフラグを変更
 	void setisAttackFlagL(bool flag, DirectX::XMFLOAT3 player);
@@ -97,7 +106,7 @@ public:
 
 	void setPressEnd();
 
-
+	//DirectX::XMFLOAT2 GetStartTimer();
 
 	int getHP() { return bossHP; };
 
@@ -114,6 +123,8 @@ private:
 	Obj3d worldTransform=Obj3d("Resources/3dModels/core/core.obj");
 
 	int bossHP = 1000;
+
+	Sprite HelthBar{ "Resources/Helth.png",CMode::PATH };
 
 	//手の座標(もしかしたら処理が同じかもしれないのでクラス化したほうがいいかも)
 	/*bossHand hand[8];*/
@@ -183,17 +194,17 @@ private:
 	float beamEndMoveCount = 0;
 
 	//動作時間
-	float maxTime = 10.0f;
-	float maxfallTime = 10.0f;
-	float maxReturnTime = 20.0f;
+	float maxTime = 8.0f;
+	float maxfallTime = 8.0f;
+	float maxReturnTime = 15.0f;
 	float maxMoveEndTime = 5.0f;
 
-	float maxFirstBeamMoveTime = 20.0f;
-	float maxEndBeamMoveTime = 20.0f;
+	float maxFirstBeamMoveTime = 15.0f;
+	float maxEndBeamMoveTime = 15.0f;
 
 	float maxBosspillarMoveTime = 30;
 
-	float maxBosspillarRollTime = 25;
+	float maxBosspillarRollTime = 10;
 	float maxBosspillarRollEndTime = 600;
 
 	//ウエイト
@@ -206,13 +217,13 @@ private:
 	float fallWaitTime = 2;
 	float returnWaitTime = 20;
 
-	float bossPunchWaitTime = 20;
+	float bossPunchWaitTime = 15;
 
-	float bossStoneFallWaitTime = 20;
+	float bossStoneFallWaitTime = 15;
 
-	float bossPillarFallWaitTime = 20;
+	float bossPillarFallWaitTime = 15;
 
-	float bossBeamWaitTime = 40;
+	float bossBeamWaitTime = 25;
 
 	float bosspillarMoveTime = 0;
 
@@ -248,6 +259,9 @@ private:
 		{ 1,0,0 },
 		{ 1,1,0 },
 	};
+
+	bool isbossStart = false;
+	float maxbossStartTime = 200;
 
 };
 

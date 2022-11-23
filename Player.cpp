@@ -50,10 +50,13 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 
 	moveVec = { 0,0,0 };
 
-	move_speed = 0.3f;
+	move_speed = 0.4f;
 
 	hopper_dash = false;
 	
+	Helth = 100;
+	Shield = 50;
+	MaxShield = 50;
 
 	cooltime = 0;
 
@@ -85,12 +88,20 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 	height = Window::GetInstance()->height_;
 	width  = Window::GetInstance()->width_;
 
+	HelthBar.SetPosition({ 440.0f,660.0f });
+	HelthBar.SetSize({ Helth * 4.0f,32.0f });
+	ShieldBar.SetPosition({ 440.0f,660.0f });
+	ShieldBar.SetSize({ Shield * 8.0f,32.0f });
+
 	Reticle.SetPosition({width/2.0f,height/2.0f});
 	Reticle.SetSize({ 1280.0f,720.0f });
 	Reticle.SetAnchorPoint({ 0.5f,0.5f });
 
 	bosstarget.SetAnchorPoint({ 0.5f,0.5f });
 	bosstarget.SetSize({ 64.0f,64.0f });
+
+	player.worldCoordinate_.position_.z = -350.0f;
+	player.Update();
 
 }
 
@@ -154,7 +165,6 @@ void Player::Update(RailCamera* camera)
 	{
 		if (moveVec.x != 0 || moveVec.z != 0)
 		{
-
 			player.worldCoordinate_.position_ += mae * move_speed;
 		}
 	}
@@ -340,10 +350,11 @@ void Player::Update(RailCamera* camera)
 			latetime = firelate;
 		}
 		latetime--;
-
+		move_speed = 0.1f;
 	}
 	else
 	{
+		move_speed = 0.4f;
 		NormalTimer = 0;
 	}
 
@@ -365,11 +376,25 @@ void Player::Update(RailCamera* camera)
 		}
 		gunbit[i].Update();
 	}
+	Shieldregencool--;
+	MutekiTimer--;
+	if (Shieldregencool < 0)
+	{
+		
+		Shield++;
+		if (Shield > MaxShield)
+		{
+			Shield = MaxShield;
+		}
+	}
 
 	kyozou.Update();
 
 	player.Update();
-
+	HelthBar.SetSize({ Helth * 4.0f,32.0f });
+	HelthBar.Update();
+	ShieldBar.SetSize({ Shield * 8.0f,32.0f });
+	ShieldBar.Update();
 	Reticle.Update();
 	bosstarget.Update();
 
@@ -380,11 +405,37 @@ void Player::Update(RailCamera* camera)
 
 }
 
+void Player::GameOverUpdate()
+{
+	player.worldCoordinate_.rotation_.z = XMConvertToRadians(55.0f);
+	player.worldCoordinate_.rotation_.y = 0.0f;
+	player.worldCoordinate_.rotation_.x = 0.0f;
+	
+	player.worldCoordinate_.position_ = { 0,0.7f,0 };
+	
+	gunbit[0].worldCoordinate_.position_ = player.worldCoordinate_.position_ + XMFLOAT3(1.0f,-0.5f,1.0f);
+	gunbit[0].worldCoordinate_.rotation_ = { 0,XMConvertToRadians(-45.0f),XMConvertToRadians(90.0f) };
+	gunbit[1].worldCoordinate_.position_ = player.worldCoordinate_.position_ + XMFLOAT3(6.0f, -0.5f, -2.0f);
+	gunbit[1].worldCoordinate_.rotation_ = { 0,XMConvertToRadians(128.0f),XMConvertToRadians(90.0f) };
+	gunbit[2].worldCoordinate_.position_ = player.worldCoordinate_.position_ + XMFLOAT3(-2.0f, -0.5f, -4.0f);
+	gunbit[2].worldCoordinate_.rotation_ = { 0,XMConvertToRadians(240.0f),XMConvertToRadians(90.0f) };
+	gunbit[3].worldCoordinate_.position_ = player.worldCoordinate_.position_ + XMFLOAT3(-5.0f, 0, 2.0f);
+	gunbit[3].worldCoordinate_.rotation_ = { XMConvertToRadians(75.0f),XMConvertToRadians(240.0f),XMConvertToRadians(0.0f) };
+	
+	
+	player.Update();
+	for (size_t i = 0; i < gunbitnum; i++)
+	{
+		gunbit[i].Update();
+	}
+
+}
+
 void Player::Draw(RailCamera* camera)
 {
 	//3Dƒ‚ƒfƒ‹‚ð•`‰æ
 	player.Draw();
-
+	
 	for (size_t i = 0; i < gunbitnum; i++)
 	{
 		gunbit[i].Draw();
@@ -404,6 +455,8 @@ void Player::Draw(RailCamera* camera)
 void Player::DrawUI(RailCamera* camera)
 {
 	Reticle.Draw();
+	HelthBar.Draw();
+	ShieldBar.Draw();
 	if (LockOn(camera))
 	{
 		bosstarget.Draw();
@@ -648,6 +701,35 @@ int Player::SetDamege(int attacknum)
 
 void Player::OnCollision()
 {
+	if (MutekiTimer < 0)
+	{
+		MaxShield -= 5;
+		MutekiTimer = 180;
+		if(Shield<0)
+		{
+			Helth -= 20;
+		}
+		if (Shield > 0)
+		{
+			Shield -= 10;
+		}
+		Shieldregencool = 600;
+	}
+	
+
+	
+	
+	if (Helth < 0)
+	{
+		isDead = true;
+	}
+	
+
+}
+
+bool Player::GetIsdead()
+{
+	return isDead;
 }
 
 void Player::reset()

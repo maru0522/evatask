@@ -44,6 +44,8 @@ public:
 
 	void setPos(DirectX::XMFLOAT3 pos);
 
+	void setTarget(DirectX::XMFLOAT3 Target);
+
 	void setRotate(DirectX::XMFLOAT3 rotate);
 
 	void setWorldMat(DirectX::XMMATRIX woeldMat);

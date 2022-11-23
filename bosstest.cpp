@@ -82,6 +82,8 @@ void bosstest::reset()
 	beamFirstStart = false;
 	beamEndStart = false;
 
+	isbossStart = false;
+
 	punchCount = 0;
 	pressCount = 0;
 	bossStoneFallCount = 0;
@@ -115,6 +117,39 @@ void bosstest::reset()
 
 }
 
+void bosstest::bossStart(DirectX::XMFLOAT3 pos)
+{
+	if (isbossStart)
+	{
+
+		if (timeCount < maxbossStartTime)
+		{
+
+			timeCount++;
+
+			worldTransform.worldCoordinate_.position_ = lerp(pos, { pos.x, 7, pos.z }, timeCount / maxbossStartTime);
+
+			worldTransform.Update();
+
+			setPressHandPos();
+
+		}
+
+		if (timeCount == maxbossStartTime)
+		{
+
+			timeCount = 0;
+			isbossStart = false;
+		}
+
+	}
+}
+
+void bosstest::SetStartFlag(bool flag)
+{
+	isbossStart = flag;
+}
+
 void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 {
 
@@ -137,6 +172,8 @@ void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 
 	setPressHandPos();
 
+	HelthBar.SetPosition({ 50,200 });
+	HelthBar.SetSize({ bossHP * 10.0f,32.0f });
 
 }
 
@@ -212,12 +249,17 @@ void bosstest::Update(DirectX::XMFLOAT3 player)
 		hand[i]->setRotate({ 0.0f,worldTransform.worldCoordinate_.rotation_.y,0.0f });
 		hand[i]->update(worldTransform.worldCoordinate_);
 	}
+
+	
+	HelthBar.SetSize({ bossHP * 10.0f,32.0f });
+	HelthBar.Update();
 	
 }
 
 void bosstest::Draw()
 {
 	
+	//HelthBar.Draw();
 	for (int i = 0; i < hand.size(); i++)
 	{
 		hand[i]->draw();
@@ -225,6 +267,7 @@ void bosstest::Draw()
 		debugText_->Printf("%d", hand[i]->getisReturnHand());*/
 	}
 	worldTransform.Draw();
+	
 	
 }
 
@@ -886,6 +929,11 @@ void bosstest::playerAttackReturnL()
 	}
 }
 
+void bosstest::setisbossStart(bool flag)
+{
+	isbossStart = flag;
+}
+
 void bosstest::setisbossPunch(bool flag)
 {
 	isbossPunch = flag;
@@ -1411,6 +1459,15 @@ void bosstest::setPressEnd()
 		hand[7]->setdefaultPos(worldTransform.worldCoordinate_.position_ + (bossSft * setbossCubeDistance));
 
 }
+
+//DirectX::XMFLOAT2 bosstest::GetStartTimer()
+//{
+//	DirectX::XMFLOAT2 timekasu = { timeCount,maxbossStartTime };
+//
+//	return timekasu;
+//}
+
+
 
 int RNG(int min, int max, bool preciseMode)
 {

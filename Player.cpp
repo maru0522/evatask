@@ -88,6 +88,16 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 	height = Window::GetInstance()->height_;
 	width  = Window::GetInstance()->width_;
 
+	PadRst .SetPosition({1140.0f,600.0f});
+	PadLst .SetPosition({0.0f,600.0f});
+	PadA   .SetPosition({1140.0f,640.0f});
+	PadRB  .SetPosition({1140.0f,680.0f});
+
+	PadRst .SetSize({ 144.0f,40.0f });
+	PadLst .SetSize({ 144.0f,40.0f });
+	PadA   .SetSize({ 144.0f,40.0f });
+	PadRB  .SetSize({ 144.0f,40.0f });
+
 	HelthBar.SetPosition({ 440.0f,660.0f });
 	HelthBar.SetSize({ Helth * 4.0f,32.0f });
 	ShieldBar.SetPosition({ 440.0f,660.0f });
@@ -391,6 +401,13 @@ void Player::Update(RailCamera* camera)
 	kyozou.Update();
 
 	player.Update();
+
+	PadRst.Update();
+	PadLst.Update();
+	PadA  .Update();
+	PadRB .Update();
+
+
 	HelthBar.SetSize({ Helth * 4.0f,32.0f });
 	HelthBar.Update();
 	ShieldBar.SetSize({ Shield * 8.0f,32.0f });
@@ -457,6 +474,11 @@ void Player::DrawUI(RailCamera* camera)
 	Reticle.Draw();
 	HelthBar.Draw();
 	ShieldBar.Draw();
+	PadRst.Draw();
+	PadLst.Draw();
+	PadA .Draw();
+	PadRB.Draw();
+
 	if (LockOn(camera))
 	{
 		bosstarget.Draw();

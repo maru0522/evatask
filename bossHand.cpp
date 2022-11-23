@@ -752,7 +752,7 @@ void bossHand::pillarPushUp()
 
 
 			//元の位置かy座標をずらした位置に線形補間
-			Hand.worldCoordinate_.position_ = lerp(defaultPos, { defaultPos.x,-12,defaultPos.z }, timeCount / maxPushUpFallTime);
+			Hand.worldCoordinate_.position_ = lerp(defaultPos, { defaultPos.x,-18,defaultPos.z }, timeCount / maxPushUpFallTime);
 
 			Hand.Update();
 		}
@@ -774,7 +774,7 @@ void bossHand::pillarPushUp()
 		if (isPushUpTargetMoveFlag and returnTimeCount < maxPushUpTargetMoveTime and isPushUpUpFlag == false)
 		{
 
-			Hand.worldCoordinate_.position_ = lerp({ defaultPos.x,-12,defaultPos.z }, { targetPos.x,-12,targetPos.z }, returnTimeCount / maxPushUpTargetMoveTime);
+			Hand.worldCoordinate_.position_ = lerp({ defaultPos.x,-18,defaultPos.z }, { targetPos.x,-18,targetPos.z }, returnTimeCount / maxPushUpTargetMoveTime);
 			Hand.Update();
 		}
 
@@ -796,7 +796,7 @@ void bossHand::pillarPushUp()
 
 
 			//下に移動
-			Hand.worldCoordinate_.position_ = lerp({ targetPos.x,-12,targetPos.z }, { targetPos.x,targetPos.y + 6.1f,targetPos.z }, ActionType4TimeCount / maxPushUpUpTime);
+			Hand.worldCoordinate_.position_ = lerp({ targetPos.x,-18,targetPos.z }, { targetPos.x,targetPos.y + 1.1f,targetPos.z }, ActionType4TimeCount / maxPushUpUpTime);
 
 			Hand.Update();
 		}
@@ -817,7 +817,7 @@ void bossHand::pillarPushUp()
 		if (waitTime > 150 and waitTime < (PushUpReturnWaitTime + 150) and isPushUpFallFlag and isPushUpReturnFlag == false)
 		{
 
-			Hand.worldCoordinate_.position_ = { cosf(waitTime) + targetPos.x, targetPos.y + 5.1f, targetPos.z };
+			Hand.worldCoordinate_.position_ = { cosf(waitTime) + targetPos.x, targetPos.y + 1.1f, targetPos.z };
 
 			Hand.Update();
 
@@ -829,7 +829,7 @@ void bossHand::pillarPushUp()
 
 
 			//元の位置かy座標をずらした位置に線形補間
-			Hand.worldCoordinate_.position_ = lerp({ targetPos.x,targetPos.y + 11.1f,targetPos.z }, { targetPos.x,-12,targetPos.z }, ActionType5TimeCount / maxPushUpUpReturnTime);
+			Hand.worldCoordinate_.position_ = lerp({ targetPos.x,targetPos.y + 1.1f,targetPos.z }, { targetPos.x,-18,targetPos.z }, ActionType5TimeCount / maxPushUpUpReturnTime);
 
 			Hand.Update();
 		}
@@ -852,7 +852,7 @@ void bossHand::pillarPushUp()
 
 
 			//下に移動
-			Hand.worldCoordinate_.position_ = lerp({ targetPos.x,-20,targetPos.z }, { defaultPos.x,-20,defaultPos.z }, returnAttackTimeCount / maxPushUpReturnTime);
+			Hand.worldCoordinate_.position_ = lerp({ targetPos.x,-18,targetPos.z }, { defaultPos.x,-18,defaultPos.z }, returnAttackTimeCount / maxPushUpReturnTime);
 
 			Hand.Update();
 		}
@@ -874,7 +874,7 @@ void bossHand::pillarPushUp()
 
 
 			//下に移動
-			Hand.worldCoordinate_.position_ = lerp({ defaultPos.x,-20,defaultPos.z }, defaultPos, ActionType6TimeCount / maxPushUpDefaultUpTime);
+			Hand.worldCoordinate_.position_ = lerp({ defaultPos.x,-18,defaultPos.z }, defaultPos, ActionType6TimeCount / maxPushUpDefaultUpTime);
 
 			Hand.Update();
 		}

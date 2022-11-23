@@ -268,7 +268,7 @@ void bosstest::bossPress(DirectX::XMFLOAT3 player)
 			if (fallTimeCount != maxfallTime and waitTime >= fallWaitTime)
 			{
 
-				worldTransform.worldCoordinate_.position_ = lerp({ targetPos.x, pressPosY, targetPos.z }, { targetPos.x, 1.1f, targetPos.z }, fallTimeCount / maxfallTime);
+				worldTransform.worldCoordinate_.position_ = lerp({ targetPos.x, pressPosY, targetPos.z }, { targetPos.x, targetPos.y+1.1f, targetPos.z }, fallTimeCount / maxfallTime);
 
 				worldTransform.Update();
 
@@ -352,7 +352,7 @@ void bosstest::bossPress(DirectX::XMFLOAT3 player)
 				{
 					moveEndTimeCount++;
 
-					worldTransform.worldCoordinate_.position_ = lerp(returnPos, { returnPos.x, 7, returnPos.z }, moveEndTimeCount / maxMoveEndTime);
+					worldTransform.worldCoordinate_.position_ = lerp(returnPos, { returnPos.x, 1, returnPos.z }, moveEndTimeCount / maxMoveEndTime);
 					
 					worldTransform.Update();
 				}

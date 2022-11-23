@@ -645,12 +645,12 @@ void bossHand::beam()
 
 
 		//ƒJƒEƒ“ƒg
-		if (timeCount < maxBeamTime and waitTime > 15)
+		if (timeCount < maxBeamTime and waitTime > 30)
 		{
 			timeCount++;
 		}
 
-		if (timeCount != maxBeamTime and waitTime > 15)
+		if (timeCount != maxBeamTime and waitTime > 30)
 		{
 
 			Hand.worldCoordinate_.position_ = lerp(targetPos, { targetPos.x,targetPos.y,targetPos.z-600 }, timeCount / maxBeamTime);

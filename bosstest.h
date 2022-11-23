@@ -30,6 +30,8 @@ public:
 	/// <param name="viewProjection">ビュープロジェクション</param>
 	void Draw();
 
+	void cubeActionDecision();
+
 	//ワールド座標を取得
 	DirectX::XMFLOAT3 GetWorldPosition();
 
@@ -109,7 +111,7 @@ private:
 	//ワールドトランスフォーム
 	Obj3d worldTransform=Obj3d("Resources/3dModels/core/core.obj");
 
-	int bossHP = 100;
+	int bossHP = 1000;
 
 	//手の座標(もしかしたら処理が同じかもしれないのでクラス化したほうがいいかも)
 	/*bossHand hand[8];*/
@@ -189,12 +191,14 @@ private:
 
 	float maxBosspillarMoveTime = 30;
 
-	float maxBosspillarRollTime = 30;
-	float maxBosspillarRollEndTime = 900;
+	float maxBosspillarRollTime = 25;
+	float maxBosspillarRollEndTime = 600;
 
 	//ウエイト
 	float waitTime = 0;
 	float punchWaitTime = 0;
+	float bossActionSelectWaitTime = 60;
+	float bossActionSelectWait = bossActionSelectWaitTime;
 
 	//待つ時間
 	float fallWaitTime = 2;

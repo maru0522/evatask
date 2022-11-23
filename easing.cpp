@@ -25,6 +25,10 @@ XMFLOAT3 easeOutQuintVec3(XMFLOAT3 start, XMFLOAT3 end, double time)
 }
 
 //a‚©‚çb‚Ü‚Å‚ÌŠÔ(0`1)‚ÌˆÊ’u‚ğ’m‚é‚±‚Æ‚ª‚Å‚«‚éŠÖ”
+double lerp(double a, double b, double t)
+{
+	return a + t * (b - a);
+}
 
 
 double easeInSine(double start, double end, double time)

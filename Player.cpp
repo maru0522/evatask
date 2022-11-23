@@ -33,7 +33,7 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 	this->boss = boss;
 
 	player = Obj3d{ "Resources/3dModels/player/Player.obj", Rcamera->getView()};
-	arrow = Obj3d{ "Resources/3dModels/bit/bit.obj", Rcamera->getView() };
+	arrow = Obj3d{ "Resources/3dModels/arrow/arrow.obj", Rcamera->getView() };
 
 	
 	kyozou=WorldCoordinate{ &viewProjection_ };
@@ -59,6 +59,9 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 
 	timer = 0;
 
+	arrowrange = 4.0f;
+	arrowvec = 1.0f;
+
 	NormalTimer = 0;
 
 	bitmovetimer = 60;
@@ -72,6 +75,8 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 
 	
 	latetime = 0;
+
+	isDead = false;
 
 	hoppertimer = 0;
 
@@ -615,15 +620,30 @@ void Player::EnemyArrow()
 	float kariy = -PtoB.y;
 	normalize(PtoB);
 
-	arrow.worldCoordinate_.position_ = player.worldCoordinate_.position_+ (PtoB * 4.0f);
+	if (arrowrange >= 4.0f || arrowrange <= 3.0f)
+	{
+		arrowvec *= -1;
+	}
+
+	arrowrange += (0.05f * arrowvec);
+
+	arrow.worldCoordinate_.position_ = player.worldCoordinate_.position_+ (PtoB * arrowrange);
 	kari.y = 0;
 	float gomi = atan2(PtoB.x, PtoB.z);
 	arrow.worldCoordinate_.rotation_.y = gomi;
 	gomi = atan2(kariy, length(kari));
 	arrow.worldCoordinate_.rotation_.x = gomi;
 
+	arrow.worldCoordinate_.rotation_.z += 0.05f;
+
 
 	arrow.Update();
+}
+
+int Player::SetDamege(int attacknum)
+{
+
+	return 0;
 }
 
 void Player::OnCollision()

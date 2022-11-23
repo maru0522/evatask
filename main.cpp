@@ -62,6 +62,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     Model::Load("Resources/3dModels/player/Player.obj");
     Model::Load("Resources/3dModels/core/core.obj");
     Model::Load("Resources/3dModels/bit/bit.obj");
+    Model::Load("Resources/3dModels/arrow/arrow.obj");
 
     XAudio::Initialize();
 

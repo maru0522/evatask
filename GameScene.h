@@ -51,5 +51,12 @@ private:
 
     float cameraRotateX = 0;
     float cameraRotateY = 9.45f;
+
+    enum Scene
+    {
+        Main,
+        Result,
+        GameOver
+    };
 };
 

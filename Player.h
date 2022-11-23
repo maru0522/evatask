@@ -86,6 +86,8 @@ public:
 	void EnemyArrow();
 
 	//衝突を検出したら呼び出されるコールバック関数
+	int SetDamege(int attacknum);
+
 	void OnCollision();
 
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; };
@@ -118,6 +120,10 @@ private:
 	XMFLOAT3 nannka[gunbitnum];
 
 	
+	int Helth;
+	int Shield;
+	
+	bool isDead;
 
 	Camera viewProjection_;
 
@@ -169,6 +175,9 @@ private:
 	const float hoppertime = 10;
 
 	float hozonY, hozonX;
+
+	float arrowrange;
+	float arrowvec;
 
 	XMFLOAT3 hozon;
 	XMFLOAT3 BitVec;

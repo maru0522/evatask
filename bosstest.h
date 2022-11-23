@@ -188,17 +188,17 @@ private:
 	float beamEndMoveCount = 0;
 
 	//動作時間
-	float maxTime = 10.0f;
-	float maxfallTime = 10.0f;
-	float maxReturnTime = 20.0f;
+	float maxTime = 8.0f;
+	float maxfallTime = 8.0f;
+	float maxReturnTime = 15.0f;
 	float maxMoveEndTime = 5.0f;
 
-	float maxFirstBeamMoveTime = 20.0f;
-	float maxEndBeamMoveTime = 20.0f;
+	float maxFirstBeamMoveTime = 15.0f;
+	float maxEndBeamMoveTime = 15.0f;
 
 	float maxBosspillarMoveTime = 30;
 
-	float maxBosspillarRollTime = 15;
+	float maxBosspillarRollTime = 10;
 	float maxBosspillarRollEndTime = 600;
 
 	//ウエイト
@@ -211,13 +211,13 @@ private:
 	float fallWaitTime = 2;
 	float returnWaitTime = 20;
 
-	float bossPunchWaitTime = 20;
+	float bossPunchWaitTime = 15;
 
-	float bossStoneFallWaitTime = 20;
+	float bossStoneFallWaitTime = 15;
 
-	float bossPillarFallWaitTime = 20;
+	float bossPillarFallWaitTime = 15;
 
-	float bossBeamWaitTime = 40;
+	float bossBeamWaitTime = 25;
 
 	float bosspillarMoveTime = 0;
 

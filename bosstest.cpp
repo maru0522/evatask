@@ -117,6 +117,13 @@ void bosstest::reset()
 
 }
 
+void bosstest::FinalizeSound(void)
+{
+    XAudio::UnLoad(&SE_BOSSAttack);
+    XAudio::UnLoad(&SE_BOSSHeavy);
+    XAudio::UnLoad(&SE_spark);
+}
+
 void bosstest::bossStart(DirectX::XMFLOAT3 pos)
 {
 	if (isbossStart)

@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include <memory>
 #include <vector>
+#include "Audio.h"
 
 class bosstest
 {
@@ -115,6 +116,8 @@ public:
 	void OnCollision(int damage);
 
 	void reset();
+
+    void FinalizeSound(void);
 
 private:
 
@@ -264,5 +267,8 @@ private:
 	bool isbossStart = false;
 	float maxbossStartTime = 200;
 
+    XAudio::SoundData SE_BOSSAttack = XAudio::Load("Resources/Sounds/SE_BOSS_1.wav"); // ボスの攻撃
+    XAudio::SoundData SE_BOSSHeavy = XAudio::Load("Resources/Sounds/SE_BossAttack.wav"); // ボスの強い攻撃　音量注意
+    XAudio::SoundData SE_spark = XAudio::Load("Resources/Sounds/SE_spark.wav"); // スパークの音（パチパチ）　音量超注意
 };
 

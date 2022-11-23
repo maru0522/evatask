@@ -11,6 +11,7 @@
 #include"Sprite.h"
 #include"bosstest.h"
 #include"RailCamera.h"
+#include "Audio.h"
 
 
 using namespace DirectX;
@@ -97,6 +98,8 @@ public:
 	bool GetIsdead();
 
 	void reset();
+
+    void FinalizeSound(void);
 
 private:
 	RailCamera* Rcamera{nullptr};
@@ -194,5 +197,7 @@ private:
 	XMFLOAT3 hozon;
 	XMFLOAT3 BitVec;
 
+    XAudio::SoundData SE_playerFoot = XAudio::Load("Resources/Sounds/SE_footstep.wav"); // プレイヤーの足音
+    XAudio::SoundData SE_playerAttack = XAudio::Load("Resources/Sounds/SE_gunfire.wav"); // プレイヤー攻撃　音量超注意
 };
 

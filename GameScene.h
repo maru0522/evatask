@@ -20,12 +20,7 @@ public:
 
 public:
     XAudio::SoundData bgm = XAudio::Load("Resources/Sounds/punpkin_mansion.wav"); // bgm
-    XAudio::SoundData SE_playerFoot = XAudio::Load("Resources/Sounds/SE_footstep.wav"); // プレイヤーの足音
-    XAudio::SoundData SE_BOSSAttack = XAudio::Load("Resources/Sounds/SE_BOSS_1.wav"); // ボスの攻撃
-    XAudio::SoundData SE_BOSSHeavy = XAudio::Load("Resources/Sounds/SE_BossAttack.wav"); // ボスの強い攻撃　音量注意
-    XAudio::SoundData SE_playerAttack = XAudio::Load("Resources/Sounds/SE_gunfire.wav"); // プレイヤー攻撃　音量超注意
     XAudio::SoundData SE_wind = XAudio::Load("Resources/Sounds/SE_wind.wav"); // 風の音　音量注意
-    XAudio::SoundData SE_spark = XAudio::Load("Resources/Sounds/SE_spark.wav"); // スパークの音（パチパチ）　音量超注意
 
 
     //Camera cameraT{};

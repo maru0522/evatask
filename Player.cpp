@@ -347,6 +347,7 @@ void Player::Update(RailCamera* camera)
 		if (latetime <= 0)
 		{
 			Attack(camera->getForwardVec(),camera);
+
 			latetime = firelate;
 		}
 		latetime--;
@@ -742,4 +743,10 @@ void Player::reset()
 	player.worldCoordinate_.position_ = { 0,0,50 };
 	player.Update();
 
+}
+
+void Player::FinalizeSound(void)
+{
+    XAudio::UnLoad(&SE_playerAttack);
+    XAudio::UnLoad(&SE_playerFoot);
 }

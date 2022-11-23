@@ -358,13 +358,11 @@ void GameScene::Draw(void)
 
 void GameScene::AudioFinalize(void)
 {
+    player.FinalizeSound();
+    boss.FinalizeSound();
     XAudio::UnLoad(&bgm);
-    XAudio::UnLoad(&SE_playerFoot);
-    XAudio::UnLoad(&SE_BOSSAttack);
-    XAudio::UnLoad(&SE_BOSSHeavy);
-    XAudio::UnLoad(&SE_playerAttack);
+
     XAudio::UnLoad(&SE_wind);
-    XAudio::UnLoad(&SE_spark);
 }
 
 void GameScene::AllCol()

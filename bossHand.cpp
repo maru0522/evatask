@@ -118,6 +118,61 @@ void bossHand::draw()
 
 }
 
+void bossHand::reset()
+{
+
+	//手が攻撃中か
+	isAttackFlag = false;
+	//攻撃が終わって戻っている時か
+	isAttackReturnFlag = false;
+
+	isFallTargetMoveFlag = false;
+	isFallFallFlag = false;
+	isFallReturnFlag = false;
+
+	isPillarFallReturnFlag = false;
+
+	isBeamFirstStart = false;
+
+	isBeamEnd = false;
+
+	isPillarRollFirstStart = false;
+
+
+	isPushUpTargetMoveFlag = false;
+	isPushUpUpFlag = false;
+	isPushUpFallFlag = false;
+	isPushUpReturnFlag = false;
+	isPushUpReturnUpFlag = false;
+
+	isGetTargetPos = false;
+
+	//手を跳ね返した時のフラグ
+	isReturnHand = false;
+
+	//タイムカウンター
+	timeCount = 0;
+	returnTimeCount = 0;
+	returnAttackTimeCount = 0;
+	ActionType4TimeCount = 0;
+	ActionType5TimeCount = 0;
+	ActionType6TimeCount = 0;
+
+	//今行動しているか
+	isAction = false;
+	isStoneFallAction = false;
+
+	//
+	isPress = false;
+	isPressEnd = true;
+	isStoneFall = false;
+	isPillarFall = false;
+	isPillarRoll = false;
+	isBeam = false;
+	isPillarPushUp = false;
+
+}
+
 void bossHand::punch(WorldCoordinate worldTransform)
 {
 

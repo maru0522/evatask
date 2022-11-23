@@ -104,6 +104,8 @@ public:
 	//与えるダメージを入れる(ダメージが確定したら専用で関数を作ること)
 	void OnCollision(int damage);
 
+	void reset();
+
 private:
 
 	//RailCamera* camera{nullptr};

@@ -240,6 +240,10 @@ void GameScene::Update(void)
 
         break;
     case Result:
+        GameClearLogo.SetPosition({ 1280.0f / 2.0f,720.0f / 4.0f });
+        GameClearLogo.SetSize({ 800.0f,300.0f });
+        GameClearLogo.SetAnchorPoint({ 0.5f,0.5f });
+        GameClearLogo.Update();
         if (KEYS::IsTrigger(DIK_G))
         {
             player.Initialize(&railcamera, &boss);
@@ -254,6 +258,11 @@ void GameScene::Update(void)
         cameraRotateY -= 0.01f;
         rotateY -= 0.01f;
         player.GameOverUpdate();
+
+        GameOverLogo.SetPosition({ 1280.0f / 2.0f,720.0f / 4.0f });
+        GameOverLogo.SetSize({ 800.0f,300.0f });
+        GameOverLogo.SetAnchorPoint({ 0.5f,0.5f });
+        GameOverLogo.Update();
         railcamera.setPos(XMFLOAT3((sinf(cameraRotateY) * 20 + player.GetWorldPosition().x), (sinf(-cameraRotateX) * 20 + player.GetWorldPosition().y + 5), (cosf(cameraRotateY) * 20 + player.GetWorldPosition().z)));
         railcamera.setRotate({ rotateX,rotateY,0 });
         if (XPAD::IsTrigger(XINPUT_GAMEPAD_A))
@@ -336,10 +345,11 @@ void GameScene::Draw(void)
         player.Draw(&railcamera);
         break;
     case Result:
+        GameClearLogo.Draw();
         break;
     case GameOver:
-
         player.Draw(&railcamera);
+        GameOverLogo.Draw();
 
 
         break;
@@ -374,6 +384,7 @@ void GameScene::AllCol()
             if (CollsionSphere(p_bullet->GetWorldPosition(), p_bullet->GetScale().x, bosshands[i]->GetwroldTransform().position_, bosshands[i]->GetwroldTransform().scale_.x) && bosshands[i]->getisAttackFlag())
             {
                 bosshands[i]->playerAttackReturn();
+                p_bullet->OnCollision();
             }
         }
     }
@@ -383,6 +394,7 @@ void GameScene::AllCol()
         if (CollsionSphere(p_bullet->GetWorldPosition(), p_bullet->GetScale().x, boss.GetWorldPosition(), boss.getPos().scale_.y))
         {
             boss.OnCollision(1);
+            p_bullet->OnCollision();
         }
 
     }

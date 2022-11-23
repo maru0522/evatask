@@ -678,7 +678,7 @@ void bosstest::bossPushUp(DirectX::XMFLOAT3 player)
 
 DirectX::XMFLOAT3 bosstest::GetWorldPosition()
 {
-	return worldTransform.worldCoordinate_.position_;
+	return worldTransform.getWorldPos();
 }
 
 void bosstest::setPos(DirectX::XMFLOAT3 pos)

@@ -124,6 +124,11 @@ private:
 	Sprite HelthBar{ "Resources/Helth.png",CMode::PATH };
 	Sprite ShieldBar{ "Resources/Shield.png",CMode::PATH };
 
+	Sprite PadRst{ "Resources/PadUiRStickButton.png",CMode::PATH };
+	Sprite PadLst{ "Resources/PadUiLStickButton.png",CMode::PATH };
+	Sprite PadA	 { "Resources/PadUiAButton.png",CMode::PATH };
+	Sprite PadRB { "Resources/PadUiRBButton.png",CMode::PATH };
+
 	WorldCoordinate kyozou;
 
 	XMFLOAT3 nannka[gunbitnum];

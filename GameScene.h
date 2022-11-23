@@ -56,8 +56,6 @@ private:
         Title,
         Main,
         MoveScene1,
-        MoveScene2,
-        MoveScene3,
         Result,
         GameOver
     };
@@ -85,7 +83,7 @@ private:
 
     bool BattleFlag = false;
 
-    int sceneNum = GameOver;
+    int sceneNum = Result;
 
     bool BlackCcr = false;
     float BlkScrTimer;

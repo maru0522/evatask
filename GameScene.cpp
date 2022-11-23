@@ -222,6 +222,10 @@ void GameScene::Update(void)
         {
             sceneNum = GameOver;
         }
+        if (boss.getHP() < 0)
+        {
+            sceneNum = Result;
+        }
 
         break;
     case MoveScene1:
@@ -239,14 +243,39 @@ void GameScene::Update(void)
         GameClearLogo.SetSize({ 800.0f,300.0f });
         GameClearLogo.SetAnchorPoint({ 0.5f,0.5f });
         GameClearLogo.Update();
-        if (KEYS::IsTrigger(DIK_G))
+        if (XPAD::IsTrigger(XINPUT_GAMEPAD_A))
         {
-            player.Initialize(&railcamera, &boss);
-            StartFlag = false;
-            TitleCameraTimer = 0;
-            BattleFlag = false;
-            sceneNum = Title;
+            //railcamera.Initialize({}, {0,0,0});
+
+            BlackCcr = true;
         }
+        if (BlackCcr)
+        {
+            bscrBle = easeInSine(bscrBle, 255, BlkScrTimer / BlkScrTime);
+            BlkScrTimer++;
+            if (BlkScrTimer > BlkScrTime)
+            {
+                BlkScrTimer = BlkScrTime;
+                player.Initialize(&railcamera, &boss);
+                rotateX = 0;
+
+                cameraX = 0;
+                cameraZ = 0;
+                rotateY = 0;
+
+                cameraRotateX = 0;
+                cameraRotateY = 9.45f;
+
+                StartFlag = false;
+                TitleCameraTimer = 0;
+                BlkScrTimer = 0;
+                BattleFlag = false;
+                boss.reset();
+                sceneNum = Title;
+            }
+
+        }
+
         break;
     case GameOver:
         railcamera.Update();
@@ -287,6 +316,7 @@ void GameScene::Update(void)
                 TitleCameraTimer = 0;
                 BlkScrTimer = 0;
                 BattleFlag = false;
+                boss.reset();
                 sceneNum = Title;
             }
 

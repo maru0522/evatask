@@ -81,7 +81,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma region DirextX毎フレーム処理
         // キーボード情報の取得
         KEYS::Update();
-        DPAD::Update();
         XPAD::Update();
         // 更新処理　ここから
 

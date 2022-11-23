@@ -63,6 +63,10 @@ double easeOutQuint(double start, double end, double time)
 {
 	return start + (1 - pow(1 - time, 5)) * (end - start);
 }
+double easeOutExpo(double start, double end, double time)
+{
+    return time >= 1 ? end : start + (1 - pow(2, -10 * time)) * (end - start);
+}
 double easeInOutQuint(double start, double end, double time)
 {
 	return start + (time < 0.5 ? 16 * pow(time, 5) : 1 - pow(-2 * time + 2, 5) / 2) * (end - start);
@@ -91,4 +95,9 @@ double easeOutElastic(double start, double end, double time)
 		: time == 1
 		? 1
 		: pow(2, -10 * time) * sin((time * 8 - 0.75) * c4) + 1) * (end - start);
+}
+
+double easeOutCubic(double start, double end, double time)
+{
+    return start + (1 - pow(1 - time, 3)) * (end - start);
 }

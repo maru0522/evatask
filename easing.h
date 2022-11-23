@@ -20,6 +20,8 @@ double easeInQuint(double start, double end, double time);
 
 double easeOutQuint(double start, double end, double time);
 
+double easeOutExpo(double start, double end, double time);
+
 double easeInOutQuint(double start, double end, double time);
 
 double easeInBack(double start, double end, double time);
@@ -27,3 +29,5 @@ double easeInBack(double start, double end, double time);
 double easeOutBack(double start, double end, double time);
 
 double easeOutElastic(double start, double end, double time);
+
+double easeOutCubic(double start, double end, double time);

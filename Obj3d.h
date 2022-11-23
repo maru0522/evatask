@@ -17,10 +17,13 @@ public: // ê√ìIïœêî
     static GraphicsPipeline* graphicsPipeline_;
 
 public: // ä÷êî
+    Obj3d() {}
     Obj3d(const fsPath& pathAndObjName);
     Obj3d(const fsPath& pathAndObjName, Camera* pCamera);
     void Update(void);
     void Draw(void);
+
+    void SetCamera(Camera* pCamera);
 
     DirectX::XMFLOAT3 getWorldPos();
 

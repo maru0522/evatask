@@ -15,9 +15,6 @@ GameScene* GameScene::GetInstance(void)
 
 void GameScene::Initialize(void)
 {
-    objT2.worldCoordinate_.position_ = { 15,0,0 };
-    muso.worldCoordinate_.position_ = { -15,0,0 };
-
     railcamera.Initialize({}, {});
 
     YUKA = { "Resources/3dModels/cube/cube.obj" ,railcamera.getView() };
@@ -31,7 +28,6 @@ void GameScene::Initialize(void)
 
 void GameScene::Update(void)
 {
-    cameraT.Update();
     railcamera.Update();
 
 
@@ -124,35 +120,20 @@ void GameScene::Update(void)
         XAudio::PlayWave(soundData1, 0.1f);
     }
 
-    objT.Update();
-    objT2.Update();
-    muso.Update();
-
-    boss.Update({});
-    objT2.Update();
-    muso.Update();
     railcamera.setPos(XMFLOAT3((sinf(cameraRotateY) * 20 + player.GetWorldPosition().x), (sinf(-cameraRotateX) * 20 + player.GetWorldPosition().y + 5), (cosf(cameraRotateY) * 20 + player.GetWorldPosition().z)));
     railcamera.setRotate({ rotateX,rotateY,0 });
-    boss.Update({});
     boss.Update(player.GetWorldPosition());
     YUKA.Update();
 
     AllCol();
-   /* objT.Draw();
-    objT2.Draw();
-    muso.Draw();*/
+}
+
+void GameScene::Draw(void)
+{
     YUKA.Draw();
     boss.Draw();
-}
-    player.DrawUI(&railcamera);
-    objT.Draw();
-    objT2.Draw();
-    muso.Draw();
-    boss.Draw();
     player.Draw(&railcamera);
-    //player.DrawUI(&railcamera);
-
-    p1_.Draw();
+    player.DrawUI(&railcamera);
 }
 
 void GameScene::AudioFinalize(void)

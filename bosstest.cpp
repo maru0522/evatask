@@ -7,6 +7,9 @@
 
 
 
+int RNG(int min, int max, bool preciseMode = false);
+
+
 
 
 
@@ -106,10 +109,18 @@ void bosstest::Update(DirectX::XMFLOAT3 player)
 		}
 	}
 
+	if (bossHP < 50)
+	{
+		state = pillar;
+	}
+
+	cubeActionDecision();
 
 		if (state == Cube)
 		{
 			
+			
+
 			setCubeDefaultPos();
 
 			if (isHandMove == false)
@@ -161,6 +172,99 @@ void bosstest::Draw()
 	
 }
 
+void bosstest::cubeActionDecision()
+{
+
+	if (isbossPunch == false and isBossPress == false and isBossStoneFall == false and isBossBeam == false and state == Cube)
+	{
+		if (bossActionSelectWait == 0)
+		{
+
+			int Select = RNG(0, 3);
+
+			switch (Select)
+			{
+			case 0:
+
+				isbossPunch = true;
+				break;
+
+			case 1:
+
+				isBossPress = true;
+
+				break;
+
+			case 2:
+
+				isBossStoneFall = true;
+
+				break;
+
+			case 3:
+
+				isBossBeam = true;
+
+				break;
+
+			default:
+				break;
+			}
+
+			bossActionSelectWait = bossActionSelectWaitTime;
+		}
+
+		if (bossActionSelectWait > 0)
+		{
+			bossActionSelectWait--;
+		}
+
+	}
+
+	if (isBossPillarFall == false and isBossPillarRoll == false and isBossPushUp == false and state == pillar)
+	{
+		if (bossActionSelectWait > 0)
+		{
+			bossActionSelectWait--;
+		}
+
+		if (bossActionSelectWait == 0)
+		{
+
+			int Select = RNG(0, 2);
+
+			switch (Select)
+			{
+			case 0:
+
+				isBossPillarFall = true;
+				break;
+
+			case 1:
+
+				isBossPillarRoll = true;
+
+				break;
+
+			case 2:
+
+				isBossPushUp = true;
+
+				break;
+
+			default:
+				break;
+			}
+
+			bossActionSelectWait = bossActionSelectWaitTime;
+		}
+
+		
+
+	}
+
+}
+
 void bosstest::bossPunch(DirectX::XMFLOAT3 player)
 {
 
@@ -170,8 +274,11 @@ void bosstest::bossPunch(DirectX::XMFLOAT3 player)
 		{
 			if (punchCount == hand.size()/2)
 			{
-				isbossPunch = false;
-				punchCount = 0;
+				if (hand[4]->getisAction() == false and hand[5]->getisAction() == false and hand[6]->getisAction() == false and hand[7]->getisAction() == false)
+				{
+					isbossPunch = false;
+					punchCount = 0;
+				}
 				return;
 			}
 
@@ -391,8 +498,11 @@ void bosstest::bossStoneFall(DirectX::XMFLOAT3 player)
 		{
 			if (bossStoneFallCount == hand.size())
 			{
-				isBossStoneFall = false;
-				bossStoneFallCount = 0;
+				if (hand[0]->getisAction() == false and hand[1]->getisAction() == false and hand[2]->getisAction() == false and hand[3]->getisAction() == false and hand[4]->getisAction() == false and hand[5]->getisAction() == false and hand[6]->getisAction() == false and hand[7]->getisAction() == false)
+				{
+					isBossStoneFall = false;
+					bossStoneFallCount = 0;
+				}
 				return;
 			}
 
@@ -425,8 +535,12 @@ void bosstest::bossPillarFall(DirectX::XMFLOAT3 player)
 		{
 			if (bossPillarFallCount == hand.size())
 			{
-				isBossPillarFall = false;
-				bossPillarFallCount = 0;
+
+				if (hand[0]->getisAction() == false and hand[1]->getisAction() == false and hand[2]->getisAction() == false and hand[3]->getisAction() == false and hand[4]->getisAction() == false and hand[5]->getisAction() == false and hand[6]->getisAction() == false and hand[7]->getisAction() == false)
+				{
+					isBossPillarFall = false;
+					bossPillarFallCount = 0;
+				}
 				return;
 			}
 
@@ -521,13 +635,13 @@ void bosstest::bossBeam()
 			hand[4]->setTargetPos({ worldTransform.worldCoordinate_.position_.x, worldTransform.worldCoordinate_.position_.y - 5, worldTransform.worldCoordinate_.position_.z + 200 });
 			hand[4]->setisBeamFlag(true);
 
-			hand[5]->setTargetPos({ worldTransform.worldCoordinate_.position_.x + 20, worldTransform.worldCoordinate_.position_.y - 5,worldTransform.worldCoordinate_.position_.z + 200 });
+			hand[5]->setTargetPos({ worldTransform.worldCoordinate_.position_.x + 30, worldTransform.worldCoordinate_.position_.y - 5,worldTransform.worldCoordinate_.position_.z + 200 });
 			hand[5]->setisBeamFlag(true);
 
-			hand[6]->setTargetPos({ worldTransform.worldCoordinate_.position_.x + 40, worldTransform.worldCoordinate_.position_.y - 5,worldTransform.worldCoordinate_.position_.z + 200 });
+			hand[6]->setTargetPos({ worldTransform.worldCoordinate_.position_.x + 60, worldTransform.worldCoordinate_.position_.y - 5,worldTransform.worldCoordinate_.position_.z + 200 });
 			hand[6]->setisBeamFlag(true);
 
-			hand[7]->setTargetPos({ worldTransform.worldCoordinate_.position_.x - 20, worldTransform.worldCoordinate_.position_.y - 5,worldTransform.worldCoordinate_.position_.z + 200 });
+			hand[7]->setTargetPos({ worldTransform.worldCoordinate_.position_.x - 30, worldTransform.worldCoordinate_.position_.y - 5,worldTransform.worldCoordinate_.position_.z + 200 });
 			hand[7]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
@@ -607,7 +721,7 @@ void bosstest::bossPillarRoll()
 				bosspillarDefaultPosCount = 0;
 			}
 			bosspillarRollTime = 0;
-			setBossPillarRollDistance+=2;
+			setBossPillarRollDistance+=5;
 		}
 
 		if (bosspillarRollEndTime == maxBosspillarRollEndTime and isPillarRollEnd == false)
@@ -619,9 +733,11 @@ void bosstest::bossPillarRoll()
 			}
 
 			isPillarRollEnd = true;
+
+			return;
 		}
 
-		if (hand[0]->getisAction() == false)
+		if (hand[0]->getisAction() == false and hand[1]->getisAction() == false and hand[2]->getisAction() == false and hand[3]->getisAction() == false and hand[4]->getisAction() == false and hand[5]->getisAction() == false and hand[6]->getisAction() == false and hand[7]->getisAction() == false)
 		{
 
 			pillarRollFirstStart = false;
@@ -653,18 +769,19 @@ void bosstest::bossPushUp(DirectX::XMFLOAT3 player)
 			for (int i = 0; i < hand.size(); i++)
 			{
 
-				DirectX::XMFLOAT3 hoge = { worldTransform.worldCoordinate_.position_.x + (front.x*(10 * (i + 1))),1,worldTransform.worldCoordinate_.position_.z + (front.z * (10 * (i + 1))) };
+				DirectX::XMFLOAT3 target = { worldTransform.worldCoordinate_.position_.x + (front.x*(10 * (i + 1))),1,worldTransform.worldCoordinate_.position_.z + (front.z * (10 * (i + 1))) };
 
-				hand[i]->setTargetPos(hoge);
+				hand[i]->setTargetPos(target);
 				hand[i]->setisPillarPushUpFlag(true);
 
 			}
 
 			pillarPushUpFirstStart = true;
 
+			return;
 		}
 
-		if (hand[0]->getisAction() == false)
+		if (hand[0]->getisAction() == false and hand[1]->getisAction() == false and hand[2]->getisAction() == false and hand[3]->getisAction() == false and hand[4]->getisAction() == false and hand[5]->getisAction() == false and hand[6]->getisAction() == false and hand[7]->getisAction() == false)
 		{
 
 			pillarPushUpFirstStart = false;
@@ -1237,4 +1354,18 @@ void bosstest::setPressEnd()
 		normalize(bossSft);
 		hand[7]->setdefaultPos(worldTransform.worldCoordinate_.position_ + (bossSft * setbossCubeDistance));
 
+}
+
+int RNG(int min, int max, bool preciseMode)
+{
+	if (!preciseMode) {
+		return (rand() % (max + 1 - min) + min);
+	}
+
+	int ret = 0;
+	do {
+		ret = rand();
+	} while (ret >= RAND_MAX - RAND_MAX % (max + 1 - min));
+	ret = ret % (max + 1 - min) + min;
+	return ret;
 }

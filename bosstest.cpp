@@ -259,7 +259,6 @@ void bosstest::Update(DirectX::XMFLOAT3 player)
 void bosstest::Draw()
 {
 	
-	//HelthBar.Draw();
 	for (int i = 0; i < hand.size(); i++)
 	{
 		hand[i]->draw();
@@ -268,6 +267,7 @@ void bosstest::Draw()
 	}
 	worldTransform.Draw();
 	
+	HelthBar.Draw();
 	
 }
 

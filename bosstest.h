@@ -198,7 +198,7 @@ private:
 
 	float maxBosspillarMoveTime = 30;
 
-	float maxBosspillarRollTime = 25;
+	float maxBosspillarRollTime = 15;
 	float maxBosspillarRollEndTime = 600;
 
 	//ウエイト

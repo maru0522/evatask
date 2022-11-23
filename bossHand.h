@@ -120,7 +120,7 @@ private:
 	float ActionType6TimeCount = 0;
 
 	//動作時間
-	float maxTime = 50.0f;
+	float maxTime = 20.0f;
 	float maxReturnTime = 20.0f;
 	float maxReturnAttackTime = 10.0f;
 
@@ -129,16 +129,16 @@ private:
 	float maxResetPressTime = 50.0f;
 
 	//石落とし
-	float maxTargetMoveTime = 35.0f;
+	float maxTargetMoveTime = 25.0f;
 	float maxFallTime = 10.0f;
 	float maxFallReturnTime = 10.0f;
 	float maxUpFallTime = 10.0f;
 
 	//第二段階用石落とし
-	float maxUpPillarFallTime = 20.0f;
+	float maxUpPillarFallTime = 15.0f;
 
 	//ビーム
-	float maxBeamTime = 30.0f;
+	float maxBeamTime = 25.0f;
 	float maxFirstBeamTime = 20.0f;
 
 	//回転
@@ -146,7 +146,7 @@ private:
 
 	//突き上げ
 	float maxPushUpFallTime = 10.0f;
-	float maxPushUpTargetMoveTime = 35.0f;
+	float maxPushUpTargetMoveTime = 25.0f;
 	float maxPushUpUpTime = 10.0f;
 	float maxPushUpUpReturnTime = 20.0f;
 	float maxPushUpReturnTime = 10.0f;
@@ -157,7 +157,7 @@ private:
 
 	//待つ時間
 	float attackWaitTime = 40;
-	float returnWaitTime = 160;
+	float returnWaitTime = 120;
 
 	float stoneFallWaitTime = 40;
 	float stoneFallReturnWaitTime = 10;

@@ -82,6 +82,8 @@ void bosstest::reset()
 	beamFirstStart = false;
 	beamEndStart = false;
 
+	isbossStart = false;
+
 	punchCount = 0;
 	pressCount = 0;
 	bossStoneFallCount = 0;

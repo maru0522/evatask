@@ -38,6 +38,8 @@ public:
 
     Sprite TitleA{ "Resources/Abutton.png" ,CMode::PATH };
     Sprite Bscr{ "Resources/kuro.png" ,CMode::PATH };
+    Sprite GameOverLogo{ "Resources/GameOver.png" ,CMode::PATH };
+    Sprite GameClearLogo{ "Resources/GameClear.png" ,CMode::PATH };
 
     bosstest boss;
     
@@ -82,7 +84,7 @@ private:
 
     bool BattleFlag = false;
 
-    int sceneNum = Title;
+    int sceneNum = GameOver;
 
     bool BlackCcr = false;
     float BlkScrTimer;

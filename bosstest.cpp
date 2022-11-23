@@ -59,6 +59,62 @@ bosstest::~bosstest()
 	}
 }
 
+void bosstest::reset()
+{
+
+	isHandMove = false;
+
+	isbossPunch = false;
+	isBossPress = false;
+	isBossStoneFall = false;
+	isBossPillarFall = false;
+	isBossPillarRoll = false;
+	isBossBeam = false;
+	isBossPushUp = false;
+
+	isPressStart = false;
+	isPressFall = false;
+	isPressReturn = false;
+	pressFirstStart = false;
+	pillarRollFirstStart = false;
+	isPillarRollEnd = false;
+	pillarPushUpFirstStart = false;
+	beamFirstStart = false;
+	beamEndStart = false;
+
+	punchCount = 0;
+	pressCount = 0;
+	bossStoneFallCount = 0;
+	bossPillarFallCount = 0;
+	bossBeamCount = 0;
+
+	timeCount = 0;
+	fallTimeCount = 0;
+	returnTimeCount = 0;
+	moveEndTimeCount = 0;
+
+	beamFirstMoveCount = 0;
+	beamEndMoveCount = 0;
+
+	bosspillarMoveTime = 0;
+
+	bosspillarRollTime = 0;
+	bosspillarRollEndTime = 0;
+
+	bosspillarDefaultPosCount = 0;
+
+	waitTime = 0;
+	punchWaitTime = 0;
+	bossActionSelectWait = bossActionSelectWaitTime;
+
+	for (int i = 0; i < hand.size(); i++)
+	{
+		hand[i]->reset();
+	}
+
+
+}
+
 void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 {
 

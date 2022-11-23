@@ -15,6 +15,8 @@ public:
 
 	void draw();
 
+	void reset();
+
 	bool getisAttackFlag() { return isAttackFlag; };
 
 	bool getisReturnHand() { return isReturnHand; };

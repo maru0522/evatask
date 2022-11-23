@@ -36,6 +36,8 @@ public:
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Update(RailCamera* camera);
 
+	void GameOverUpdate();
+
 	/// <summary>
 	/// 描画
 	/// </summary>

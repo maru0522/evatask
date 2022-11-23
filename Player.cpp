@@ -92,6 +92,9 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 	bosstarget.SetAnchorPoint({ 0.5f,0.5f });
 	bosstarget.SetSize({ 64.0f,64.0f });
 
+	player.worldCoordinate_.position_.z = -350.0f;
+	player.Update();
+
 }
 
 void Player::Update(RailCamera* camera)
@@ -154,7 +157,6 @@ void Player::Update(RailCamera* camera)
 	{
 		if (moveVec.x != 0 || moveVec.z != 0)
 		{
-
 			player.worldCoordinate_.position_ += mae * move_speed;
 		}
 	}
@@ -377,6 +379,32 @@ void Player::Update(RailCamera* camera)
 
 
 
+
+}
+
+void Player::GameOverUpdate()
+{
+	player.worldCoordinate_.rotation_.z = XMConvertToRadians(55.0f);
+	player.worldCoordinate_.rotation_.y = 0.0f;
+	player.worldCoordinate_.rotation_.x = 0.0f;
+	
+	player.worldCoordinate_.position_ = { 0,0.7f,0 };
+	
+	gunbit[0].worldCoordinate_.position_ = player.worldCoordinate_.position_ + XMFLOAT3(1.0f,-0.5f,1.0f);
+	gunbit[0].worldCoordinate_.rotation_ = { 0,XMConvertToRadians(-45.0f),XMConvertToRadians(90.0f) };
+	gunbit[1].worldCoordinate_.position_ = player.worldCoordinate_.position_ + XMFLOAT3(6.0f, -0.5f, -2.0f);
+	gunbit[1].worldCoordinate_.rotation_ = { 0,XMConvertToRadians(128.0f),XMConvertToRadians(90.0f) };
+	gunbit[2].worldCoordinate_.position_ = player.worldCoordinate_.position_ + XMFLOAT3(-2.0f, -0.5f, -4.0f);
+	gunbit[2].worldCoordinate_.rotation_ = { 0,XMConvertToRadians(240.0f),XMConvertToRadians(90.0f) };
+	gunbit[3].worldCoordinate_.position_ = player.worldCoordinate_.position_ + XMFLOAT3(-5.0f, 0, 2.0f);
+	gunbit[3].worldCoordinate_.rotation_ = { XMConvertToRadians(75.0f),XMConvertToRadians(240.0f),XMConvertToRadians(0.0f) };
+	
+	
+	player.Update();
+	for (size_t i = 0; i < gunbitnum; i++)
+	{
+		gunbit[i].Update();
+	}
 
 }
 

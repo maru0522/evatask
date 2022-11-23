@@ -55,6 +55,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     Texture::Load("Resources/mario.jpg");
     Texture::Load("Resources/Reticle.png");
     Texture::Load("Resources/mark.png");
+    Texture::Load("Resources/Abutton.png");
+    Texture::Load("Resources/kuro.png");
 
     // 3d.obj読み込み
     Model::Load("Resources/3dModels/cube/cube.obj");
@@ -63,6 +65,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     Model::Load("Resources/3dModels/core/core.obj");
     Model::Load("Resources/3dModels/bit/bit.obj");
     Model::Load("Resources/3dModels/arrow/arrow.obj");
+    Model::Load("Resources/3dModels/Title/Title.obj");
 
     XAudio::Initialize();
 

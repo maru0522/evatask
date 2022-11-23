@@ -59,6 +59,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     Texture::Load("Resources/kuro.png");
     Texture::Load("Resources/Helth.png");
     Texture::Load("Resources/Shield.png");
+    Texture::Load("Resources/GameClear.png");
+    Texture::Load("Resources/GameOver.png");
+    Texture::Load("Resources/PadUiAButton.png");
     
 
     // 3d.obj読み込み

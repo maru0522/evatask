@@ -117,12 +117,12 @@ void GameScene::Update(void)
             }
 
             XMFLOAT2 inputnum = XPAD::GetRStick();
-            cameraRotateY += (float)inputnum.x / SHRT_MAX * 0.01f;
-            rotateY += (float)inputnum.x / SHRT_MAX * 0.01f;
+            cameraRotateY += (float)inputnum.x / SHRT_MAX * 0.02f;
+            rotateY += (float)inputnum.x / SHRT_MAX * 0.02f;
             if ((cameraRotateX < 0.27f && (float)inputnum.y / SHRT_MAX>0) || (cameraRotateX > -0.6f && (float)inputnum.y / SHRT_MAX < 0))
             {
-                cameraRotateX += (float)inputnum.y / SHRT_MAX * 0.01f;
-                rotateX -= (float)inputnum.y / SHRT_MAX * 0.01f;
+                cameraRotateX += (float)inputnum.y / SHRT_MAX * 0.02f;
+                rotateX -= (float)inputnum.y / SHRT_MAX * 0.02f;
             }
 
             if (KEYS::IsDown(DIK_D))

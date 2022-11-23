@@ -81,7 +81,7 @@ bool vector3Issame(DirectX::XMFLOAT3 a, DirectX::XMFLOAT3 b);
 
 bossHand::bossHand()
 {
-	Hand= Obj3d("Resources/3dModels/muso/muso.obj");
+	
 }
 
 void bossHand::init(DirectX::XMFLOAT3 scale, DirectX::XMFLOAT3 rotate, DirectX::XMFLOAT3 translation, Camera* camera)

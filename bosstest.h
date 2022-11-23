@@ -104,7 +104,7 @@ public:
 
 private:
 
-	RailCamera* camera{nullptr};
+	//RailCamera* camera{nullptr};
 
 	//ワールドトランスフォーム
 	Obj3d worldTransform=Obj3d("Resources/3dModels/core/core.obj");

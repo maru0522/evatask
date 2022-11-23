@@ -186,8 +186,7 @@ private:
 
 	DirectX::XMFLOAT3 startBeamScale = { 5,5,5 };
 
-	Model* model;
-
+	
 };
 
 const DirectX::XMFLOAT3 lerp(const DirectX::XMFLOAT3& start, const DirectX::XMFLOAT3& end, const float t);

@@ -11,23 +11,32 @@ void GameScene::Initialize(void)
 {
     objT2.worldCoordinate_.position_ = { 15,0,0 };
     muso.worldCoordinate_.position_ = { -15,0,0 };
+
+    railcamera.Initialize({}, {});
+
+    boss.Initialize(&railcamera, {0,0,50});
 }
 
 void GameScene::Update(void)
 {
     cameraT.Update();
+    railcamera.Update();
 
     if (KEYS::IsDown(DIK_W)) {
         cameraT.eye_.z += 5;
+        z += 5;
     }
     if (KEYS::IsDown(DIK_S)) {
         cameraT.eye_.z -= 5;
+        z -= 5;
     }
     if (KEYS::IsDown(DIK_A)) {
         cameraT.eye_.x -= 5;
+        x -= 5;
     }
     if (KEYS::IsDown(DIK_D)) {
         cameraT.eye_.x += 5;
+        x += 5;
     }
 
     if (KEYS::IsDown(DIK_LEFTARROW)) {
@@ -47,6 +56,10 @@ void GameScene::Update(void)
     objT.Update();
     objT2.Update();
     muso.Update();
+
+    boss.Update({});
+
+    railcamera.setPos({ x,0,z });
 }
 
 void GameScene::Draw(void)
@@ -54,6 +67,7 @@ void GameScene::Draw(void)
     objT.Draw();
     objT2.Draw();
     muso.Draw();
+    boss.Draw();
 }
 
 void GameScene::AudioFinalize(void)

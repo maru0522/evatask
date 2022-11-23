@@ -77,7 +77,7 @@ void Player::Update()
 
 	moveVec = { 0,0,0 };
 	
-	XMFLOAT3 Flont /*= camera->getForwardVec()*/;
+	XMFLOAT3 Flont = Rcamera->getForwardVec();
 	XMFLOAT3 KyozouFlont = Flont;
 	Flont.y = 0;
 	normalize(Flont);
@@ -446,7 +446,7 @@ void Player::Attack(XMFLOAT3 flont)
 
 
 		std::unique_ptr <PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initlize(Rcamera->getView(), BulletStart, gunbit[i].worldCoordinate_.rotation_, velocity);
+		newBullet->Initlize(Rcamera, BulletStart, gunbit[i].worldCoordinate_.rotation_, velocity);
 
 		bullets_.push_back(std::move(newBullet));
 
@@ -560,6 +560,10 @@ XMFLOAT3 Player::Hikaku(XMFLOAT3 boss, XMFLOAT3 hand1, XMFLOAT3 hand2)
 	if (length(kariA) < length(kariB) && length(kariA) < length(kariC)) return boss;
 	else if (length(kariB) < length(kariA) && length(kariB) < length(kariC)) return hand1;
 	else if (length(kariC) < length(kariA) && length(kariC) < length(kariB)) return hand2;
+	else
+	{
+		return boss;
+	}
 
 }
 
@@ -571,6 +575,10 @@ XMFLOAT3 Player::Hikaku2(XMFLOAT3 hand1, XMFLOAT3 hand2)
 
 	if (length(kariB) <= length(kariC)) return hand1;
 	else if (length(kariC) < length(kariB)) return hand2;
+	else
+	{
+		return hand1;
+	}
 
 }
 

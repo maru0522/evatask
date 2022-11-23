@@ -6,8 +6,6 @@ using namespace DirectX;
 XMFLOAT3 easeOutSineVec3(XMFLOAT3 startpos, XMFLOAT3 endpos, float time);
 
 XMFLOAT3 easeOutQuintVec3(XMFLOAT3 start, XMFLOAT3 end, double time);
-
-
 double lerp(double a, double b, double t);
 
 double easeInSine(double start, double end, double time);

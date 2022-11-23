@@ -155,8 +155,8 @@ private:
 
 	int latetime;
 
-	int width;
-	int height;
+	size_t width;
+	size_t height;
 
 	float timer;
 

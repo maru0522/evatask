@@ -50,10 +50,10 @@ public:
 
 private:
 
-	Camera* viewProjection_;
+	Camera viewProjection_;
 
 	//ワールド変換データ(適当読み込み)
-	Obj3d worldTransform_ = Obj3d("Resources/3dModels/muso/muso.obj",viewProjection_);
+	WorldCoordinate worldTransform_ ;
 
 	//ビュープロジェクション
 

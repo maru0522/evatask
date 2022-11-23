@@ -13,14 +13,10 @@ RailCamera::~RailCamera()
 
 void RailCamera::Initialize(DirectX::XMFLOAT3 worldPos, DirectX::XMFLOAT3 Rot)
 {
-	//ワールドトランスフォームの初期設定
-	worldTransform_.Initialize();
-
-	worldTransform_.worldCoordinate_.position_ = worldPos;
-	worldTransform_.worldCoordinate_.rotation_ = Rot;
-	worldTransform_.worldCoordinate_.scale_ = {1.0f,1.0f,1.0f};
-
-
+	
+	worldTransform_.position_ = worldPos;
+	worldTransform_.rotation_ = Rot;
+	worldTransform_.scale_ = {1.0f,1.0f,1.0f};
 
 }
 
@@ -29,25 +25,25 @@ void RailCamera::Update()
 
 	worldTransform_.Update();
 
-	viewProjection_->eye_ = worldTransform_.worldCoordinate_.position_;
+	viewProjection_.eye_ = worldTransform_.position_;
 
 	//ワールド前方ベクトル
 	forward = { 0.0f, 0.0f, 1.0f };
 
 	//レールカメラの回転を反映
-	forward = VectorMat(forward, worldTransform_.worldCoordinate_.matWorld_);
+	forward = VectorMat(forward, worldTransform_.matWorld_);
 
 	//視点から前方に適当な距離進んだ位置が注視点
-	viewProjection_->target_ = viewProjection_->eye_ + forward;
+	viewProjection_.target_ = viewProjection_.eye_ + forward;
 
 	//ワールド上方ベクトル
 	DirectX::XMFLOAT3 up(0, 1, 0);
 
 	//レールカメラの回転を反映(レールカメラの上方ベクトル)
-	viewProjection_->up_ = VectorMat(up, worldTransform_.worldCoordinate_.matWorld_);
+	viewProjection_.up_ = VectorMat(up, worldTransform_.matWorld_);
 
 	
-	viewProjection_->Update();
+	viewProjection_.Update();
 
 	/*debugText_->SetPos(50, 110);
 	debugText_->Printf("eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);*/
@@ -77,29 +73,29 @@ DirectX::XMFLOAT3 RailCamera::VectorMat(DirectX::XMMATRIX mat, DirectX::XMFLOAT3
 
 Camera* RailCamera::getView()
 {
-	return viewProjection_;
+	return &viewProjection_;
 }
 
 DirectX::XMMATRIX RailCamera::getMatWorld()
 {
-	return worldTransform_.worldCoordinate_.matWorld_;
+	return worldTransform_.matWorld_;
 }
 
 void RailCamera::setPos(DirectX::XMFLOAT3 pos)
 {
-	worldTransform_.worldCoordinate_.position_ = pos;
+	worldTransform_.position_ = pos;
 	worldTransform_.Update();
 }
 
 void RailCamera::setRotate(DirectX::XMFLOAT3 rotate)
 {
-	worldTransform_.worldCoordinate_.rotation_ = rotate;
+	worldTransform_.rotation_ = rotate;
 	worldTransform_.Update();
 }
 
 void RailCamera::setWorldMat(DirectX::XMMATRIX woeldMat)
 {
-	worldTransform_.worldCoordinate_.matWorld_ = woeldMat;
+	worldTransform_.matWorld_ = woeldMat;
 }
 
 DirectX::XMFLOAT3 RailCamera::GetWorldPosition()
@@ -109,9 +105,9 @@ DirectX::XMFLOAT3 RailCamera::GetWorldPosition()
 	DirectX::XMFLOAT3 worldpos;
 
 	//ワールド行列の平行移動成分を取得(ワールド座標)
-	worldpos.x = worldTransform_.worldCoordinate_.matWorld_.r[3].m128_f32[0];
-	worldpos.y = worldTransform_.worldCoordinate_.matWorld_.r[3].m128_f32[1];
-	worldpos.z = worldTransform_.worldCoordinate_.matWorld_.r[3].m128_f32[2];
+	worldpos.x = worldTransform_.matWorld_.r[3].m128_f32[0];
+	worldpos.y = worldTransform_.matWorld_.r[3].m128_f32[1];
+	worldpos.z = worldTransform_.matWorld_.r[3].m128_f32[2];
 
 	return worldpos;
 

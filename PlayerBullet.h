@@ -1,5 +1,6 @@
 #pragma once
 #include"Obj3d.h"
+#include"RailCamera.h"
 
 using namespace DirectX;
 class PlayerBullet
@@ -14,7 +15,7 @@ public:
 	/// <param name="model">モデル</param>
 	/// <param name="position">初期座標</param>
 	/// <param name="velocity">速度</param>
-	void Initlize(Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rota, const XMFLOAT3& velocity);
+	void Initlize(RailCamera* camera, const XMFLOAT3& position, const XMFLOAT3& rota, const XMFLOAT3& velocity);
 
 	/// <summary>
 	/// 更新
@@ -37,10 +38,10 @@ public:
 
 private:
 
-	Camera* camera{ nullptr };
+	RailCamera* camera{ nullptr };
 
 	//ワールド変換データ
-	Obj3d bullet{ "Resources/3dModels/bit/bit.obj", camera };
+	Obj3d bullet{ "Resources/3dModels/bit/bit.obj", camera->getView()};
 
 	//テクスチャハンドル
 

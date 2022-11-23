@@ -2,7 +2,7 @@
 #include "WorldCoordinate.h"
 #include "Obj3d.h"
 #include "bossHand.h"
-#include "Camera.h"
+#include "RailCamera.h"
 #include <memory>
 #include <vector>
 
@@ -17,7 +17,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="position">初期座標</param>
-	void Initialize(Camera* camera, DirectX::XMFLOAT3 pos);
+	void Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos);
 
 	/// <summary>
 	/// 更新
@@ -104,6 +104,8 @@ public:
 
 private:
 
+	RailCamera* camera{nullptr};
+
 	//ワールドトランスフォーム
 	Obj3d worldTransform=Obj3d("Resources/3dModels/core/core.obj");
 
@@ -132,8 +134,8 @@ private:
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 
-	//3Dモデル
-	Model* model_ = nullptr;
+	////3Dモデル
+	//Model* model_ = nullptr;
 
 	bool isHandMove = false;
 

@@ -172,6 +172,8 @@ void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 
 	setPressHandPos();
 
+	HelthBar.SetPosition({ 50,200 });
+	HelthBar.SetSize({ bossHP * 10.0f,32.0f });
 
 }
 
@@ -247,12 +249,17 @@ void bosstest::Update(DirectX::XMFLOAT3 player)
 		hand[i]->setRotate({ 0.0f,worldTransform.worldCoordinate_.rotation_.y,0.0f });
 		hand[i]->update(worldTransform.worldCoordinate_);
 	}
+
+	
+	HelthBar.SetSize({ bossHP * 10.0f,32.0f });
+	HelthBar.Update();
 	
 }
 
 void bosstest::Draw()
 {
 	
+	//HelthBar.Draw();
 	for (int i = 0; i < hand.size(); i++)
 	{
 		hand[i]->draw();
@@ -260,6 +267,7 @@ void bosstest::Draw()
 		debugText_->Printf("%d", hand[i]->getisReturnHand());*/
 	}
 	worldTransform.Draw();
+	
 	
 }
 

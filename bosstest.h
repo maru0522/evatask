@@ -3,6 +3,7 @@
 #include "Obj3d.h"
 #include "bossHand.h"
 #include "RailCamera.h"
+#include "Sprite.h"
 #include <memory>
 #include <vector>
 
@@ -122,6 +123,8 @@ private:
 	Obj3d worldTransform=Obj3d("Resources/3dModels/core/core.obj");
 
 	int bossHP = 1000;
+
+	Sprite HelthBar{ "Resources/Helth.png",CMode::PATH };
 
 	//è‚ÌÀ•W(‚à‚µ‚©‚µ‚½‚çˆ—‚ª“¯‚¶‚©‚à‚µ‚ê‚È‚¢‚Ì‚ÅƒNƒ‰ƒX‰»‚µ‚½‚Ù‚¤‚ª‚¢‚¢‚©‚à)
 	/*bossHand hand[8];*/

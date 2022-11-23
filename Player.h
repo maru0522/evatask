@@ -82,6 +82,7 @@ public:
 	XMFLOAT3 Hikaku (XMFLOAT3 boss,  XMFLOAT3 hand1, XMFLOAT3 hand2);
 	XMFLOAT3 Hikaku2(XMFLOAT3 hand1, XMFLOAT3 hand2);
 
+	WorldCoordinate GetHitArea();
 	void EnemyArrow();
 
 	//衝突を検出したら呼び出されるコールバック関数
@@ -116,15 +117,13 @@ private:
 
 	XMFLOAT3 nannka[gunbitnum];
 
+	
 
 	Camera viewProjection_;
 
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
 	uint32_t ReticleTexture = 0u;
-
-	Keyboard* KeyInput= nullptr;
-	XPad* PadInput = nullptr;
 
 	//弾
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
@@ -148,9 +147,6 @@ private:
 
 	XMFLOAT3 dash_vec;
 
-	bool B_bottan;
-	bool old_B_bottan;
-
 	const int firelate = 15;
 
 	int latetime;
@@ -170,7 +166,7 @@ private:
 
 	float hoppertimer;
 
-	const float hoppertime = 20;
+	const float hoppertime = 10;
 
 	float hozonY, hozonX;
 

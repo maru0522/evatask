@@ -39,6 +39,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // Input初期化
     KEYS::Initialize();
     DPAD::Initialize();
+    XPAD::Initialize();
 
 #pragma region 描画初期化処理
     // graphicsPipeline初期化
@@ -52,8 +53,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     Texture::Initialize();
     Texture::Load("Resources/reimu.png");
     Texture::Load("Resources/mario.jpg");
-    Texture::Load("Resources/mark.png");
     Texture::Load("Resources/Reticle.png");
+    Texture::Load("Resources/mark.png");
 
     // 3d.obj読み込み
     Model::Load("Resources/3dModels/cube/cube.obj");
@@ -80,6 +81,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         // キーボード情報の取得
         KEYS::Update();
         DPAD::Update();
+        XPAD::Update();
         // 更新処理　ここから
 
         gameS->Update();

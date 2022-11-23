@@ -21,6 +21,7 @@ DirectX::XMFLOAT3 VectorMatDivW(XMMATRIX mat, XMFLOAT3 pos)
 
 Player::Player()
 {
+
 }
 
 Player::~Player()
@@ -52,6 +53,7 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 	move_speed = 0.3f;
 
 	hopper_dash = false;
+	
 
 	cooltime = 0;
 
@@ -68,9 +70,7 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 
 	cooldown = false;
 
-	B_bottan = false;
-	old_B_bottan = false;
-
+	
 	latetime = 0;
 
 	hoppertimer = 0;
@@ -80,14 +80,18 @@ void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
 	height = Window::GetInstance()->height_;
 	width  = Window::GetInstance()->width_;
 
-	PadInput->Initialize();
-	KeyInput->Initialize();
+	Reticle.SetPosition({width/2.0f,height/2.0f});
+	Reticle.SetSize({ 1280.0f,720.0f });
+	Reticle.SetAnchorPoint({ 0.5f,0.5f });
+
+	bosstarget.SetAnchorPoint({ 0.5f,0.5f });
+	bosstarget.SetSize({ 64.0f,64.0f });
+
 }
 
 void Player::Update(RailCamera* camera)
 {
-	PadInput->Update();
-	KeyInput->Update();
+	
 
 
 	moveVec = { 0,0,0 };
@@ -103,26 +107,26 @@ void Player::Update(RailCamera* camera)
 			return bullet->IsDead();
 		});
 
-	XMFLOAT2 inputnum = PadInput->GetRStick();
+	XMFLOAT2 inputnum = XPAD::GetLStick();
 	
 	moveVec.x += (float)inputnum.x / SHRT_MAX;
 	moveVec.z += (float)inputnum.y / SHRT_MAX;
 	
 
 
-	if (KeyInput->IsDown(DIK_UP))
+	if (KEYS::IsDown(DIK_UP))
 	{
 		moveVec.z = 1;
 	}
-	if (KeyInput->IsDown(DIK_UP))
+	if (KEYS::IsDown(DIK_DOWN))
 	{
 		moveVec.z = -1;
 	}
-	if (KeyInput->IsDown(DIK_UP))
+	if (KEYS::IsDown(DIK_RIGHT))
 	{
 		moveVec.x = 1;
 	}
-	if (KeyInput->IsDown(DIK_UP))
+	if (KEYS::IsDown(DIK_LEFT))
 	{
 		moveVec.x = -1;
 	}
@@ -232,15 +236,14 @@ void Player::Update(RailCamera* camera)
 
 
 
-
-
+	
 	
 
-	if ((KeyInput->IsTrigger(DIK_Z) || PadInput->IsTrigger(XINPUT_GAMEPAD_A)) && !cooldown)
+	if ((KEYS::IsTrigger(DIK_Z) || XPAD::IsTrigger(XINPUT_GAMEPAD_A)) && !cooldown&&!hopper_dash)
 	{
 		hopper_dash = true;
 
-		cooltime = 60;
+		cooltime = 45;
 
 		hoppertimer = 0;
 
@@ -283,7 +286,7 @@ void Player::Update(RailCamera* camera)
 
 
 
-	if ((KeyInput->IsDown(DIK_SPACE) || (PadInput->IsDown( XINPUT_GAMEPAD_RIGHT_SHOULDER)) && hoppertimer >= 0))
+	if ((KEYS::IsDown(DIK_SPACE) || (XPAD::IsDown( XINPUT_GAMEPAD_RIGHT_SHOULDER)) && hoppertimer >= 0))
 	{
 		if (!LockOn(camera))
 		{
@@ -595,6 +598,14 @@ XMFLOAT3 Player::Hikaku2(XMFLOAT3 hand1, XMFLOAT3 hand2)
 		return hand1;
 	}
 
+}
+
+WorldCoordinate Player::GetHitArea()
+{
+	WorldCoordinate a = player.worldCoordinate_;
+	a.scale_.y = 1.5f;
+
+	return a;
 }
 
 void Player::EnemyArrow()

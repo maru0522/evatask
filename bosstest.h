@@ -123,7 +123,7 @@ private:
 	//ワールドトランスフォーム
 	Obj3d worldTransform=Obj3d("Resources/3dModels/core/core.obj");
 
-	int bossHP = 1000;
+	int bossHP = 800;
 
 	Sprite HelthBar{ "Resources/Helth.png",CMode::PATH };
 

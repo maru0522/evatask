@@ -172,8 +172,8 @@ void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 
 	setPressHandPos();
 
-	HelthBar.SetPosition({ 50,200 });
-	HelthBar.SetSize({ bossHP * 10.0f,32.0f });
+	HelthBar.SetPosition({ 50,30 });
+	HelthBar.SetSize({ bossHP * 1.0f,32.0f });
 
 }
 
@@ -267,8 +267,12 @@ void bosstest::Draw()
 	}
 	worldTransform.Draw();
 	
-	HelthBar.Draw();
 	
+}
+
+void bosstest::DrawUI(void)
+{
+	HelthBar.Draw();
 }
 
 void bosstest::cubeActionDecision()

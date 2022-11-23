@@ -137,6 +137,7 @@ void GameScene::Update(void)
                 rotateY -= 0.01f;
             }
 
+#ifdef _DEBUG
             if (KEYS::IsTrigger(DIK_I))
             {
                 boss.setisAttackFlagL(true, player.GetWorldPosition());
@@ -161,13 +162,7 @@ void GameScene::Update(void)
             {
                 boss.setisBossPushUp(true);
             }
-
-            if (KEYS::IsTrigger(DIK_SPACE)) {
-                XAudio::PlayWave(soundData2, 0.03f);
-            }
-            if (KEYS::IsTrigger(DIK_RETURN)) {
-                XAudio::PlayWave(soundData1, 0.1f);
-            }
+#endif
             player.Update(&railcamera);
         }
 
@@ -334,6 +329,7 @@ void GameScene::Draw(void)
         if(BattleFlag)boss.Draw();
         player.Draw(&railcamera);
         player.DrawUI(&railcamera);
+        boss.DrawUI();
         break;
 
     case MoveScene1:
@@ -362,8 +358,13 @@ void GameScene::Draw(void)
 
 void GameScene::AudioFinalize(void)
 {
-    XAudio::UnLoad(&soundData1);
-    XAudio::UnLoad(&soundData2);
+    XAudio::UnLoad(&bgm);
+    XAudio::UnLoad(&SE_playerFoot);
+    XAudio::UnLoad(&SE_BOSSAttack);
+    XAudio::UnLoad(&SE_BOSSHeavy);
+    XAudio::UnLoad(&SE_playerAttack);
+    XAudio::UnLoad(&SE_wind);
+    XAudio::UnLoad(&SE_spark);
 }
 
 void GameScene::AllCol()

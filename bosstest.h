@@ -30,6 +30,7 @@ public:
 	/// </summary>
 	/// <param name="viewProjection">ビュープロジェクション</param>
 	void Draw();
+    void DrawUI(void);
 
 	//開始位置 pos
 	void bossStart(DirectX::XMFLOAT3 pos);

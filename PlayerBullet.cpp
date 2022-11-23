@@ -10,6 +10,9 @@ PlayerBullet::~PlayerBullet()
 
 void PlayerBullet::Initlize(RailCamera* camera, const XMFLOAT3& position, const XMFLOAT3& rota, const XMFLOAT3& velocity)
 {
+	//Obj3d bullet{ "Resources/3dModels/bit/bit.obj", &camera->getView() };
+
+
 }
 
 void PlayerBullet::Update()

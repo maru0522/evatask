@@ -15,6 +15,7 @@ void GameScene::Initialize(void)
     railcamera.Initialize({}, {});
 
     boss.Initialize(&railcamera, {0,0,50});
+    player.Initialize(&railcamera, &boss);
 }
 
 void GameScene::Update(void)
@@ -58,8 +59,11 @@ void GameScene::Update(void)
     muso.Update();
 
     boss.Update({});
+    player.Update(&railcamera);
 
     railcamera.setPos({ x,0,z });
+
+
 }
 
 void GameScene::Draw(void)
@@ -68,6 +72,8 @@ void GameScene::Draw(void)
     objT2.Draw();
     muso.Draw();
     boss.Draw();
+    player.Draw(&railcamera);
+    player.DrawUI(&railcamera);
 }
 
 void GameScene::AudioFinalize(void)

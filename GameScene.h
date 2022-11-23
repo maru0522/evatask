@@ -4,6 +4,7 @@
 #include "Obj3d.h"
 #include "bosstest.h"
 #include "RailCamera.h"
+#include "Player.h"
 
 class GameScene
 {
@@ -30,6 +31,8 @@ public:
     RailCamera railcamera;
 
     bosstest boss;
+    
+    Player player;
 
     float x = 0;
     float z = 0;

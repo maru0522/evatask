@@ -41,7 +41,7 @@ private:
 	RailCamera* camera{ nullptr };
 
 	//ワールド変換データ
-	Obj3d bullet{ "Resources/3dModels/bit/bit.obj", camera->getView()};
+	Obj3d bullet{  "Resources/3dModels/bit/bit.obj" };
 
 	//テクスチャハンドル
 

@@ -27,26 +27,26 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(RailCamera* camera, bosstest* boss);
+	void Initialize(RailCamera* Rcamera, bosstest* boss);
 	//void ResourceInitialize();
 
 	/// <summary>
 	/// 更新
 	/// </summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
-	void Update();
+	void Update(RailCamera* camera);
 
 	/// <summary>
 	/// 描画
 	/// </summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
-	void Draw();
+	void Draw(RailCamera* camera);
 
-	void DrawUI();
+	void DrawUI(RailCamera* camera);
 
-	XMFLOAT2 kasu(XMFLOAT3 obj);
+	XMFLOAT2 kasu(XMFLOAT3 obj,RailCamera* camera);
 
-	bool screenLock(WorldCoordinate pos);
+	bool screenLock(WorldCoordinate pos, RailCamera* camera);
 
 	/// <summary>
 	/// UI描画
@@ -54,7 +54,7 @@ public:
 	/// <summary>
 	/// 攻撃
 	/// </summary>
-	void Attack(XMFLOAT3 flont);
+	void Attack(XMFLOAT3 flont, RailCamera* camera);
 
 	/// <summary>
 	/// 行列とベクトルの計算(左側が行列計算の先)
@@ -75,7 +75,7 @@ public:
 
 	//XMFLOAT2 poskure() { return bosstarget->GetPosition(); }
 
-	bool LockOn();
+	bool LockOn(RailCamera* camera);
 
 	void SetWorldPosition(XMFLOAT3 osimodosi);
 
@@ -93,26 +93,26 @@ public:
 	void reset();
 
 private:
-	RailCamera* Rcamera = nullptr;
+	RailCamera* Rcamera{nullptr};
 
 	bosstest* boss = nullptr;
 
 	static const int gunbitnum = 4;
 
 	//ワールド変換データ
-	Obj3d player{"Resources/3dModels/player/player.obj", Rcamera->getView()};
-	Obj3d arrow{ "Resources/3dModels/bit/bit.obj", Rcamera->getView() };
-	Obj3d gunbit[gunbitnum]
-	{ 
-		Obj3d{"Resources/3dModels/cube/cube.obj", Rcamera->getView()},
-		Obj3d{"Resources/3dModels/cube/cube.obj", Rcamera->getView()},
-		Obj3d{"Resources/3dModels/cube/cube.obj", Rcamera->getView()},
-		Obj3d{"Resources/3dModels/cube/cube.obj", Rcamera->getView()}
-	};											  
+	Obj3d player=Obj3d{ "Resources/3dModels/player/Player.obj" };
+	Obj3d arrow =Obj3d{ "Resources/3dModels/bit/bit.obj" };
+	Obj3d gunbit[gunbitnum] =
+	{
+		Obj3d{ "Resources/3dModels/bit/bit.obj" },
+		Obj3d{ "Resources/3dModels/bit/bit.obj" },
+		Obj3d{ "Resources/3dModels/bit/bit.obj" },
+		Obj3d{ "Resources/3dModels/bit/bit.obj" }
+	};
 	Sprite Reticle{"Resources/Reticle.png",CMode::PATH};
 	Sprite bosstarget{ "Resources/mark.png",CMode::PATH };
 
-	WorldCoordinate kyozou{ Rcamera->getView() };
+	WorldCoordinate kyozou;
 
 	XMFLOAT3 nannka[gunbitnum];
 

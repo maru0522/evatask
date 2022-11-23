@@ -17,14 +17,29 @@ DirectX::XMFLOAT3 VectorMatDivW(XMMATRIX mat, XMFLOAT3 pos)
 }
 
 
-void Player::Initialize(RailCamera* camera, bosstest* boss)
-{
-	assert(camera);
 
-	this->Rcamera = camera;
+
+Player::Player()
+{
+}
+
+Player::~Player()
+{
+}
+
+void Player::Initialize(RailCamera* Rcamera, bosstest* boss)
+{
+	this->boss = boss;
+
+	player = Obj3d{ "Resources/3dModels/player/Player.obj", Rcamera->getView()};
+	arrow = Obj3d{ "Resources/3dModels/bit/bit.obj", Rcamera->getView() };
+
+	
+	kyozou=WorldCoordinate{ &viewProjection_ };
 
 	for (size_t i = 0; i < gunbitnum; i++)
 	{
+		gunbit[i] = Obj3d{ "Resources/3dModels/bit/bit.obj", Rcamera->getView() };
 		gunbit[i].worldCoordinate_.scale_ = { 1.0f,1.0f,1.5f };
 	}
 	nannka[0] = { 0.5f,1,0 };
@@ -69,7 +84,7 @@ void Player::Initialize(RailCamera* camera, bosstest* boss)
 	KeyInput->Initialize();
 }
 
-void Player::Update()
+void Player::Update(RailCamera* camera)
 {
 	PadInput->Update();
 	KeyInput->Update();
@@ -77,7 +92,7 @@ void Player::Update()
 
 	moveVec = { 0,0,0 };
 	
-	XMFLOAT3 Flont = Rcamera->getForwardVec();
+	XMFLOAT3 Flont = camera->getForwardVec();
 	XMFLOAT3 KyozouFlont = Flont;
 	Flont.y = 0;
 	normalize(Flont);
@@ -137,7 +152,7 @@ void Player::Update()
 
 	EnemyArrow();
 
-	if (LockOn())
+	if (LockOn(camera))
 	{
 		lockmove = true;
 	}
@@ -159,7 +174,7 @@ void Player::Update()
 
 	}
 
-	if (LockOn())
+	if (LockOn(camera))
 	{
 
 
@@ -270,7 +285,7 @@ void Player::Update()
 
 	if ((KeyInput->IsDown(DIK_SPACE) || (PadInput->IsDown( XINPUT_GAMEPAD_RIGHT_SHOULDER)) && hoppertimer >= 0))
 	{
-		if (!LockOn())
+		if (!LockOn(camera))
 		{
 			XMFLOAT3 kari2 = KyozouFlont;
 			kari2.y = 0;
@@ -313,7 +328,7 @@ void Player::Update()
 
 		if (latetime <= 0)
 		{
-			Attack(Rcamera->getForwardVec());
+			Attack(camera->getForwardVec(),camera);
 			latetime = firelate;
 		}
 		latetime--;
@@ -357,7 +372,7 @@ void Player::Update()
 
 }
 
-void Player::Draw()
+void Player::Draw(RailCamera* camera)
 {
 	//3Dモデルを描画
 	player.Draw();
@@ -372,22 +387,22 @@ void Player::Draw()
 		bullet->Draw();
 	}
 
-	if (!screenLock(boss->getPos()))
+	if (!screenLock(boss->getPos(),camera))
 	{
 		arrow.Draw();
 	}
 }
 
-void Player::DrawUI()
+void Player::DrawUI(RailCamera* camera)
 {
 	Reticle.Draw();
-	if (LockOn())
+	if (LockOn(camera))
 	{
 		bosstarget.Draw();
 	}
 }
 
-XMFLOAT2 Player::kasu(XMFLOAT3 obj)
+XMFLOAT2 Player::kasu(XMFLOAT3 obj,RailCamera* camera)
 {
 	XMFLOAT3 positionReticle = obj;
 
@@ -399,8 +414,8 @@ XMFLOAT2 Player::kasu(XMFLOAT3 obj)
 	};
 
 	//ビュー行列とプロジェクション行列、ビューポート行列を合成する
-	XMMATRIX matViewProjectionViewport = Rcamera->getView()->GetView();
-	matViewProjectionViewport *= Rcamera->getView()->GetProjection();
+	XMMATRIX matViewProjectionViewport = camera->getView()->GetView();
+	matViewProjectionViewport *= camera->getView()->GetProjection();
 	matViewProjectionViewport *= matViewport;
 
 	//ワールド→スクリーン座標変換(ここで3Dから2Dになる)
@@ -410,15 +425,15 @@ XMFLOAT2 Player::kasu(XMFLOAT3 obj)
 	return XMFLOAT2(positionReticle.x, positionReticle.y);
 }
 
-bool Player::screenLock(WorldCoordinate pos)
+bool Player::screenLock(WorldCoordinate pos, RailCamera* camera)
 {
 	XMMATRIX Pos = pos.matWorld_;
-	Pos *= Rcamera->getView()->GetView();
-	Pos *= Rcamera->getView()->GetProjection();
+	Pos *= camera->getView()->GetView();
+	Pos *= camera->getView()->GetProjection();
 
 	float objZ = Pos.r[3].m128_f32[2];
 
-	XMFLOAT2 scr_pos = kasu(pos.position_);
+	XMFLOAT2 scr_pos = kasu(pos.position_,camera);
 
 	if ((width / 2) - 120.0f < scr_pos.x && (width / 2) + 120.0f > scr_pos.x && (height / 2) - 120.0f < scr_pos.y && (height / 2) + 120.0f > scr_pos.y && objZ > 0)
 	{
@@ -431,7 +446,7 @@ bool Player::screenLock(WorldCoordinate pos)
 	}
 }
 
-void Player::Attack(XMFLOAT3 flont)
+void Player::Attack(XMFLOAT3 flont, RailCamera* camera)
 {
 	const float kBulletSpeed = 5.0f;
 	for (size_t i = 0; i < gunbitnum; i++)
@@ -446,7 +461,7 @@ void Player::Attack(XMFLOAT3 flont)
 
 
 		std::unique_ptr <PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initlize(Rcamera, BulletStart, gunbit[i].worldCoordinate_.rotation_, velocity);
+		newBullet->Initlize(camera, BulletStart, gunbit[i].worldCoordinate_.rotation_, velocity);
 
 		bullets_.push_back(std::move(newBullet));
 
@@ -491,43 +506,43 @@ WorldCoordinate Player::GetMat()
 	return player.worldCoordinate_;
 }
 
-bool Player::LockOn()
+bool Player::LockOn(RailCamera* camera)
 {
 	const std::vector<bossHand*>& bosshands = boss->getHand();
 	for (int i = 0; i < bosshands.size(); i++)
 	{
-		if (screenLock(boss->getPos()) && screenLock(bosshands[i]->GetwroldTransform()))
+		if (screenLock(boss->getPos(),camera) && screenLock(bosshands[i]->GetwroldTransform(),camera))
 		{
 			if (bosshands[i]->getisAttackFlag())
 			{
 				XMFLOAT3 hozon2 = Hikaku(boss->GetWorldPosition(), bosshands[i]->GetwroldTransform().position_, hozon);
 				//bosstarget->SetPosition(kasu(hozon2));
-				bosstarget.SetPosition(kasu(hozon2));
+				bosstarget.SetPosition(kasu(hozon2,camera));
 				BitVec = hozon2;
 				hozon = hozon2;
 
 			}
 			else
 			{
-				bosstarget.SetPosition(kasu(boss->GetWorldPosition()));
+				bosstarget.SetPosition(kasu(boss->GetWorldPosition(),camera));
 				BitVec = boss->GetWorldPosition();
 			}
 
 
 			return true;
 		}
-		else if (screenLock(boss->getPos()))
+		else if (screenLock(boss->getPos(),camera))
 		{
 
-			bosstarget.SetPosition(kasu(boss->GetWorldPosition()));
+			bosstarget.SetPosition(kasu(boss->GetWorldPosition(),camera));
 			BitVec = boss->GetWorldPosition();
 			return true;
 		}
-		else if (screenLock(bosshands[i]->GetwroldTransform()) && bosshands[i]->getisAttackFlag())
+		else if (screenLock(bosshands[i]->GetwroldTransform(),camera) && bosshands[i]->getisAttackFlag())
 		{
 
 			XMFLOAT3 hozon2 = Hikaku2(bosshands[i]->GetwroldTransform().position_, hozon);
-			bosstarget.SetPosition(kasu(hozon2));
+			bosstarget.SetPosition(kasu(hozon2,camera));
 			hozon = hozon2;
 			BitVec = hozon2;
 

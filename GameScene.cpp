@@ -359,7 +359,7 @@ void GameScene::Draw(void)
         if(BattleFlag)boss.Draw();
         player.Draw(&railcamera);
         player.DrawUI(&railcamera);
-        boss.DrawUI();
+        if(BattleFlag)boss.DrawUI();
         break;
 
     case MoveScene1:

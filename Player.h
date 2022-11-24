@@ -106,6 +106,8 @@ private:
 
 	bosstest* boss = nullptr;
 
+	XAudio::SoundData exampleSound = XAudio::Load("Resources/Sounds/SE_gunfire.wav");
+
 	static const int gunbitnum = 4;
 
 	//ワールド変換データ

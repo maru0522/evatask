@@ -179,6 +179,7 @@ void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 	setPressHandPos();
 
 	HelthBar.SetPosition({ 140,30 });
+
 	HelthBar.SetSize({ bossHP * 1.0f,32.0f });
 
 }
@@ -257,7 +258,7 @@ void bosstest::Update(DirectX::XMFLOAT3 player)
 	}
 
 	
-	HelthBar.SetSize({ bossHP * 10.0f,32.0f });
+	HelthBar.SetSize({ bossHP * 1.0f,32.0f });
 	HelthBar.Update();
 	
 }

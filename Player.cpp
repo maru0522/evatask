@@ -550,6 +550,7 @@ void Player::Attack(XMFLOAT3 flont, RailCamera* camera)
 		bullets_.push_back(std::move(newBullet));
 
 	}
+	XAudio::PlayWave(exampleSound, 0.5f);
 
 }
 
@@ -727,8 +728,12 @@ void Player::OnCollision()
 	if (MutekiTimer < 0)
 	{
 		MaxShield -= 5;
+		if (MaxShield < 0)
+		{
+			MaxShield = 0;
+		}
 		MutekiTimer = 180;
-		if(Shield<0)
+		if(Shield<=0)
 		{
 			Helth -= 20;
 		}
@@ -769,6 +774,7 @@ void Player::reset()
 
 void Player::FinalizeSound(void)
 {
+	XAudio::UnLoad(&exampleSound);
     XAudio::UnLoad(&SE_playerAttack);
     XAudio::UnLoad(&SE_playerFoot);
 }

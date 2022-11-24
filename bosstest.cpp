@@ -108,6 +108,7 @@ void bosstest::reset()
 	waitTime = 0;
 	punchWaitTime = 0;
 	bossActionSelectWait = bossActionSelectWaitTime;
+	bossHP = 1000;
 
 	for (int i = 0; i < hand.size(); i++)
 	{
@@ -209,7 +210,7 @@ void bosstest::Update(DirectX::XMFLOAT3 player)
 		}
 	}
 
-	if (bossHP < 50)
+	if (bossHP < 200)
 	{
 		state = pillar;
 	}

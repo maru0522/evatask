@@ -243,7 +243,7 @@ void GameScene::Update(void)
         GameClearLogo.SetSize({ 800.0f,300.0f });
         GameClearLogo.SetAnchorPoint({ 0.5f,0.5f });
         GameClearLogo.Update();
-        if (XPAD::IsTrigger(XINPUT_GAMEPAD_A))
+        if (XPAD::IsTrigger(XINPUT_GAMEPAD_A) or KEYS::IsTrigger(DIK_SPACE))
         {
             //railcamera.Initialize({}, {0,0,0});
 
@@ -289,7 +289,7 @@ void GameScene::Update(void)
         GameOverLogo.Update();
         railcamera.setPos(XMFLOAT3((sinf(cameraRotateY) * 20 + player.GetWorldPosition().x), (sinf(-cameraRotateX) * 20 + player.GetWorldPosition().y + 5), (cosf(cameraRotateY) * 20 + player.GetWorldPosition().z)));
         railcamera.setRotate({ rotateX,rotateY,0 });
-        if (XPAD::IsTrigger(XINPUT_GAMEPAD_A))
+        if (XPAD::IsTrigger(XINPUT_GAMEPAD_A) or KEYS::IsTrigger(DIK_SPACE))
         {
             //railcamera.Initialize({}, {0,0,0});
            

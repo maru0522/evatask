@@ -83,7 +83,7 @@ private:
 
     bool BattleFlag = false;
 
-    int sceneNum = Result;
+    int sceneNum = Title;
 
     bool BlackCcr = false;
     float BlkScrTimer;

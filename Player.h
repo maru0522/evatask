@@ -11,6 +11,7 @@
 #include"Sprite.h"
 #include"bosstest.h"
 #include"RailCamera.h"
+#include "Audio.h"
 
 
 using namespace DirectX;
@@ -35,6 +36,8 @@ public:
 	/// </summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Update(RailCamera* camera);
+
+	void GameOverUpdate();
 
 	/// <summary>
 	/// 描画
@@ -92,13 +95,18 @@ public:
 
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; };
 
+	bool GetIsdead();
 
 	void reset();
+
+    void FinalizeSound(void);
 
 private:
 	RailCamera* Rcamera{nullptr};
 
 	bosstest* boss = nullptr;
+
+	XAudio::SoundData exampleSound = XAudio::Load("Resources/Sounds/SE_gunfire.wav");
 
 	static const int gunbitnum = 4;
 
@@ -115,6 +123,14 @@ private:
 	Sprite Reticle{"Resources/Reticle.png",CMode::PATH};
 	Sprite bosstarget{ "Resources/mark.png",CMode::PATH };
 
+	Sprite HelthBar{ "Resources/Helth.png",CMode::PATH };
+	Sprite ShieldBar{ "Resources/Shield.png",CMode::PATH };
+
+	Sprite PadRst{ "Resources/PadUiRStickButton.png",CMode::PATH };
+	Sprite PadLst{ "Resources/PadUiLStickButton.png",CMode::PATH };
+	Sprite PadA	 { "Resources/PadUiAButton.png",CMode::PATH };
+	Sprite PadRB { "Resources/PadUiRBButton.png",CMode::PATH };
+
 	WorldCoordinate kyozou;
 
 	XMFLOAT3 nannka[gunbitnum];
@@ -122,6 +138,12 @@ private:
 	
 	int Helth;
 	int Shield;
+	int MaxShield;
+
+	int Shieldregencool;
+
+	int MutekiTimer;
+
 	
 	bool isDead;
 
@@ -182,5 +204,7 @@ private:
 	XMFLOAT3 hozon;
 	XMFLOAT3 BitVec;
 
+    XAudio::SoundData SE_playerFoot = XAudio::Load("Resources/Sounds/SE_footstep.wav"); // プレイヤーの足音
+    XAudio::SoundData SE_playerAttack = XAudio::Load("Resources/Sounds/SE_gunfire.wav"); // プレイヤー攻撃　音量超注意
 };
 

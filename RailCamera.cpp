@@ -87,6 +87,11 @@ void RailCamera::setPos(DirectX::XMFLOAT3 pos)
 	worldTransform_.Update();
 }
 
+void RailCamera::setTarget(DirectX::XMFLOAT3 Target)
+{
+	viewProjection_.target_ = Target;
+}
+
 void RailCamera::setRotate(DirectX::XMFLOAT3 rotate)
 {
 	worldTransform_.rotation_ = rotate;

@@ -1,6 +1,7 @@
 #include "bosstest.h"
 #include <cassert>
 #include <cstdlib>
+#include "Audio.h"
 
 //const Vector3 lerp(const Vector3& start, const Vector3& end, const float t);
 
@@ -82,6 +83,8 @@ void bosstest::reset()
 	beamFirstStart = false;
 	beamEndStart = false;
 
+	isbossStart = false;
+
 	punchCount = 0;
 	pressCount = 0;
 	bossStoneFallCount = 0;
@@ -106,6 +109,7 @@ void bosstest::reset()
 	waitTime = 0;
 	punchWaitTime = 0;
 	bossActionSelectWait = bossActionSelectWaitTime;
+	bossHP = 1000;
 
 	for (int i = 0; i < hand.size(); i++)
 	{
@@ -113,6 +117,45 @@ void bosstest::reset()
 	}
 
 
+}
+
+void bosstest::FinalizeSound(void)
+{
+    XAudio::UnLoad(&SE_BOSSAttack);
+    XAudio::UnLoad(&SE_spark);
+}
+
+void bosstest::bossStart(DirectX::XMFLOAT3 pos)
+{
+	if (isbossStart)
+	{
+
+		if (timeCount < maxbossStartTime)
+		{
+
+			timeCount++;
+
+			worldTransform.worldCoordinate_.position_ = lerp(pos, { pos.x, 7, pos.z }, timeCount / maxbossStartTime);
+
+			worldTransform.Update();
+
+			setPressHandPos();
+
+		}
+
+		if (timeCount == maxbossStartTime)
+		{
+
+			timeCount = 0;
+			isbossStart = false;
+		}
+
+	}
+}
+
+void bosstest::SetStartFlag(bool flag)
+{
+	isbossStart = flag;
 }
 
 void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
@@ -137,6 +180,9 @@ void bosstest::Initialize(RailCamera* camera, DirectX::XMFLOAT3 pos)
 
 	setPressHandPos();
 
+	HelthBar.SetPosition({ 140,30 });
+
+	HelthBar.SetSize({ bossHP * 1.0f,32.0f });
 
 }
 
@@ -165,7 +211,7 @@ void bosstest::Update(DirectX::XMFLOAT3 player)
 		}
 	}
 
-	if (bossHP < 50)
+	if (bossHP < 200)
 	{
 		state = pillar;
 	}
@@ -212,6 +258,10 @@ void bosstest::Update(DirectX::XMFLOAT3 player)
 		hand[i]->setRotate({ 0.0f,worldTransform.worldCoordinate_.rotation_.y,0.0f });
 		hand[i]->update(worldTransform.worldCoordinate_);
 	}
+
+	
+	HelthBar.SetSize({ bossHP * 1.0f,32.0f });
+	HelthBar.Update();
 	
 }
 
@@ -226,6 +276,12 @@ void bosstest::Draw()
 	}
 	worldTransform.Draw();
 	
+	
+}
+
+void bosstest::DrawUI(void)
+{
+	HelthBar.Draw();
 }
 
 void bosstest::cubeActionDecision()
@@ -450,6 +506,8 @@ void bosstest::bossPress(DirectX::XMFLOAT3 player)
 				fallTimeCount = 0;
 				waitTime = 0;
 
+				XAudio::PlayWave(SE_BOSSAttack, 1.0f);
+
 			}
 
 		}
@@ -638,6 +696,7 @@ void bosstest::bossBeam()
 			hand[4]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark,1.0f);
 			return;
 		}
 
@@ -650,6 +709,7 @@ void bosstest::bossBeam()
 			hand[5]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark, 1.0f);
 			return;
 		}
 
@@ -665,6 +725,7 @@ void bosstest::bossBeam()
 			hand[6]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark, 1.0f);
 			return;
 		}
 
@@ -683,6 +744,7 @@ void bosstest::bossBeam()
 			hand[7]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark, 1.0f);
 			return;
 		}
 
@@ -701,6 +763,7 @@ void bosstest::bossBeam()
 			hand[7]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark, 1.0f);
 			return;
 		}
 
@@ -884,6 +947,11 @@ void bosstest::playerAttackReturnL()
 	{
 		hand[i]->playerAttackReturn();
 	}
+}
+
+void bosstest::setisbossStart(bool flag)
+{
+	isbossStart = flag;
 }
 
 void bosstest::setisbossPunch(bool flag)
@@ -1411,6 +1479,15 @@ void bosstest::setPressEnd()
 		hand[7]->setdefaultPos(worldTransform.worldCoordinate_.position_ + (bossSft * setbossCubeDistance));
 
 }
+
+//DirectX::XMFLOAT2 bosstest::GetStartTimer()
+//{
+//	DirectX::XMFLOAT2 timekasu = { timeCount,maxbossStartTime };
+//
+//	return timekasu;
+//}
+
+
 
 int RNG(int min, int max, bool preciseMode)
 {

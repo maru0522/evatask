@@ -1,6 +1,7 @@
 #include "bosstest.h"
 #include <cassert>
 #include <cstdlib>
+#include "Audio.h"
 
 //const Vector3 lerp(const Vector3& start, const Vector3& end, const float t);
 
@@ -505,6 +506,8 @@ void bosstest::bossPress(DirectX::XMFLOAT3 player)
 				fallTimeCount = 0;
 				waitTime = 0;
 
+				XAudio::PlayWave(SE_BOSSAttack, 1.0f);
+
 			}
 
 		}
@@ -693,6 +696,7 @@ void bosstest::bossBeam()
 			hand[4]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark,1.0f);
 			return;
 		}
 
@@ -705,6 +709,7 @@ void bosstest::bossBeam()
 			hand[5]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark, 1.0f);
 			return;
 		}
 
@@ -720,6 +725,7 @@ void bosstest::bossBeam()
 			hand[6]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark, 1.0f);
 			return;
 		}
 
@@ -738,6 +744,7 @@ void bosstest::bossBeam()
 			hand[7]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark, 1.0f);
 			return;
 		}
 
@@ -756,6 +763,7 @@ void bosstest::bossBeam()
 			hand[7]->setisBeamFlag(true);
 			bossBeamCount++;
 			waitTime = bossBeamWaitTime;
+			XAudio::PlayWave(SE_spark, 1.0f);
 			return;
 		}
 

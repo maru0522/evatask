@@ -211,6 +211,7 @@ void bossHand::punch(WorldCoordinate worldTransform)
 			{
 				isAttackReturnFlag = true;
 				waitTime = 0;
+				XAudio::PlayWave(SE_BOSSAttack, 1.0f);
 			}
 
 			//ƒJƒEƒ“ƒg
@@ -437,6 +438,7 @@ void bossHand::stoneFall()
 		{
 			isFallReturnFlag = true;
 			waitTime = 0;
+			XAudio::PlayWave(SE_BOSSAttack, 1.0f);
 		}
 
 
@@ -587,6 +589,7 @@ void bossHand::pillarFall()
 		{
 			isPillarFallReturnFlag = true;
 			waitTime = 0;
+			XAudio::PlayWave(SE_BOSSAttack, 1.0f);
 		}
 
 
@@ -859,6 +862,7 @@ void bossHand::pillarPushUp()
 		if (ActionType4TimeCount == maxPushUpUpTime and isPushUpFallFlag == false)
 		{
 			isPushUpFallFlag = true;
+			XAudio::PlayWave(SE_BOSSAttack, 1.0f);
 		}
 
 

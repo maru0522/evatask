@@ -2,6 +2,7 @@
 #include "Obj3d.h"
 #include "Camera.h"
 #include "WorldCoordinate.h"
+#include "Audio.h"
 
 class bossHand
 {
@@ -187,6 +188,9 @@ private:
 	DirectX::XMFLOAT3 defaultPos = {};
 
 	DirectX::XMFLOAT3 startBeamScale = { 5,5,5 };
+
+	XAudio::SoundData SE_BOSSAttack = XAudio::Load("Resources/Sounds/SE_BOSS_1.wav"); // ボスの攻撃
+	XAudio::SoundData SE_spark = XAudio::Load("Resources/Sounds/SE_spark.wav"); // スパークの音（パチパチ）　音量超注意
 
 	
 };

@@ -39,8 +39,9 @@ void GameScene::Initialize(void)
     TitleKanban.worldCoordinate_.position_ = { -20.0f,-5.0f,-350.0f };
     TitleKanban.worldCoordinate_.rotation_.y = XMConvertToRadians(30.0f);
     TitleKanban.Update();
-    boss.Initialize(&railcamera, {0,100.0f,0});
-    player.Initialize(&railcamera, &boss);
+    boss = new bosstest();
+    boss->Initialize(&railcamera, {0,100.0f,0});
+    player.Initialize(&railcamera, boss);
 }
 
 void GameScene::Update(void)
@@ -74,6 +75,7 @@ void GameScene::Update(void)
         if ((KEYS::IsTrigger(DIK_SPACE) || XPAD::IsTrigger(XINPUT_GAMEPAD_A))&& !BlackCcr)
         {
             StartFlag = true;
+            boss->reset();
 
         }
         if (StartFlag)
@@ -186,7 +188,7 @@ void GameScene::Update(void)
         {
             BattleFlag = true;
             BossCameraTimer = 0;
-            boss.SetStartFlag(true);
+            boss->SetStartFlag(true);
             sceneNum = MoveScene1;
         }
         if (BattleFlag)
@@ -207,7 +209,11 @@ void GameScene::Update(void)
             {
                 player.SetWorldPosition({ player.GetWorldPosition().x,player.GetWorldPosition().y,200.0f });
             }
-            boss.Update(player.GetWorldPosition());
+            boss->Update(player.GetWorldPosition());
+            if (boss->getHP() < 0)
+            {
+                sceneNum = Result;
+            }
         }
         railcamera.setPos(XMFLOAT3((sinf(cameraRotateY) * 20 + player.GetWorldPosition().x), (sinf(-cameraRotateX) * 20 + player.GetWorldPosition().y + 5), (cosf(cameraRotateY) * 20 + player.GetWorldPosition().z)));
         railcamera.setRotate({ rotateX,rotateY,0 });
@@ -221,16 +227,13 @@ void GameScene::Update(void)
         {
             sceneNum = GameOver;
         }
-        if (boss.getHP() < 0)
-        {
-            sceneNum = Result;
-        }
+        
 
         break;
     case MoveScene1:
         
-        boss.bossStart({ 0,100.0f,0 });
-        if (!boss.GetStartFlag())
+        boss->bossStart({ 0,100.0f,0 });
+        if (!boss->GetStartFlag())
         {
             sceneNum = Main;
         }
@@ -255,7 +258,7 @@ void GameScene::Update(void)
             if (BlkScrTimer > BlkScrTime)
             {
                 BlkScrTimer = BlkScrTime;
-                player.Initialize(&railcamera, &boss);
+                player.Initialize(&railcamera,boss);
                 rotateX = 0;
 
                 cameraX = 0;
@@ -269,7 +272,7 @@ void GameScene::Update(void)
                 TitleCameraTimer = 0;
                 BlkScrTimer = 0;
                 BattleFlag = false;
-                boss.reset();
+                boss->reset();
                 sceneNum = Title;
             }
 
@@ -301,7 +304,7 @@ void GameScene::Update(void)
             if (BlkScrTimer > BlkScrTime)
             {
                 BlkScrTimer = BlkScrTime;
-                player.Initialize(&railcamera, &boss);
+                player.Initialize(&railcamera, boss);
                 rotateX = 0;
 
                 cameraX = 0;
@@ -315,7 +318,7 @@ void GameScene::Update(void)
                 TitleCameraTimer = 0;
                 BlkScrTimer = 0;
                 BattleFlag = false;
-                boss.reset();
+                boss->reset();
                 sceneNum = Title;
             }
 
@@ -355,10 +358,10 @@ void GameScene::Draw(void)
         YUKA2.Draw();
         TitlePoll.Draw();
         TitleKanban.Draw();
-        if(BattleFlag)boss.Draw();
+        if(BattleFlag)boss->Draw();
         player.Draw(&railcamera);
         player.DrawUI(&railcamera);
-        if(BattleFlag)boss.DrawUI();
+        if(BattleFlag)boss->DrawUI();
         break;
 
     case MoveScene1:
@@ -366,7 +369,7 @@ void GameScene::Draw(void)
         YUKA2.Draw();
         TitlePoll.Draw();
         TitleKanban.Draw();
-        boss.Draw();
+        boss->Draw();
         player.Draw(&railcamera);
         break;
     case Result:
@@ -388,10 +391,11 @@ void GameScene::Draw(void)
 void GameScene::AudioFinalize(void)
 {
     player.FinalizeSound();
-    boss.FinalizeSound();
+    boss->FinalizeSound();
     XAudio::UnLoad(&bgm);
 
     XAudio::UnLoad(&SE_wind);
+    delete(boss);
 }
 
 void GameScene::AllCol()
@@ -402,7 +406,7 @@ void GameScene::AllCol()
 
     const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player.GetBullets();
 
-    std::vector<bossHand*> bosshands = boss.getHand();
+    std::vector<bossHand*> bosshands = boss->getHand();
     //ボスハンドのリスト化したユニークptr変数
 
     for (const std::unique_ptr<PlayerBullet>& p_bullet : playerBullets)
@@ -419,9 +423,9 @@ void GameScene::AllCol()
 
     for (const std::unique_ptr<PlayerBullet>& p_bullet : playerBullets)
     {
-        if (CollsionSphere(p_bullet->GetWorldPosition(), p_bullet->GetScale().x, boss.GetWorldPosition(), boss.getPos().scale_.y))
+        if (CollsionSphere(p_bullet->GetWorldPosition(), p_bullet->GetScale().x, boss->GetWorldPosition(), boss->getPos().scale_.y))
         {
-            boss.OnCollision(2);
+            boss->OnCollision(2);
             p_bullet->OnCollision();
         }
 
@@ -430,10 +434,10 @@ void GameScene::AllCol()
     for (int i = 0; i < bosshands.size(); i++)
     {
 
-        if (CollsionSphere(boss.GetWorldPosition(), boss.getPos().scale_.x, bosshands[i]->GetwroldTransform().position_, bosshands[i]->GetwroldTransform().scale_.x) && bosshands[i]->getisReturnHand())
+        if (CollsionSphere(boss->GetWorldPosition(), boss->getPos().scale_.x, bosshands[i]->GetwroldTransform().position_, bosshands[i]->GetwroldTransform().scale_.x) && bosshands[i]->getisReturnHand())
         {
 
-            boss.OnCollision(50);
+            boss->OnCollision(50);
 
         }
 

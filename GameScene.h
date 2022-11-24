@@ -38,7 +38,7 @@ public:
     Sprite GameOverLogo{ "Resources/GameOver.png" ,CMode::PATH };
     Sprite GameClearLogo{ "Resources/GameClear.png" ,CMode::PATH };
 
-    bosstest boss;
+    bosstest* boss;
     
     Player player;
 

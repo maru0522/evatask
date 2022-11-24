@@ -110,6 +110,7 @@ void bosstest::reset()
 	punchWaitTime = 0;
 	bossActionSelectWait = bossActionSelectWaitTime;
 	bossHP = 1000;
+	state = Cube;
 
 	for (int i = 0; i < hand.size(); i++)
 	{

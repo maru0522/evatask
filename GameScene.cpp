@@ -421,7 +421,7 @@ void GameScene::AllCol()
     {
         if (CollsionSphere(p_bullet->GetWorldPosition(), p_bullet->GetScale().x, boss.GetWorldPosition(), boss.getPos().scale_.y))
         {
-            boss.OnCollision(1);
+            boss.OnCollision(2);
             p_bullet->OnCollision();
         }
 
@@ -433,7 +433,7 @@ void GameScene::AllCol()
         if (CollsionSphere(boss.GetWorldPosition(), boss.getPos().scale_.x, bosshands[i]->GetwroldTransform().position_, bosshands[i]->GetwroldTransform().scale_.x) && bosshands[i]->getisReturnHand())
         {
 
-            boss.OnCollision(10);
+            boss.OnCollision(50);
 
         }
 
